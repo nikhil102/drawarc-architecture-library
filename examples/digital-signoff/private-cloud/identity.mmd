@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Release signoff record"]
     n0["Release artifact"]
     n1["Signoff request"]
     n2["Approval policy"]
     n3["Approvers"]
-    n4["Decision store"]
+    n4[("Decision store")]
     n5["Release gate"]
     n6["Deployment workflow"]
     n0 --> n1
@@ -27,7 +27,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

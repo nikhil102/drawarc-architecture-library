@@ -8,12 +8,14 @@ exports.getPattern = getPattern;
 exports.coreGraph = coreGraph;
 exports.getVariant = getVariant;
 exports.projectForVariant = projectForVariant;
+exports.publicFileSlug = publicFileSlug;
+exports.resolvePublicFile = resolvePublicFile;
 const patterns_json_1 = __importDefault(require("./patterns.json"));
 exports.patterns = patterns_json_1.default;
 exports.deployments = [
-    { id: "aws", name: "AWS environment", nodes: ["AWS ingress boundary", "Private application network", "Application runtime"], note: "Choose concrete AWS services, availability zones and private endpoints before deployment." },
-    { id: "azure", name: "Azure environment", nodes: ["Azure entry boundary", "Application subnet", "Azure application runtime"], note: "Choose Azure services and identity assignments; validate network and data residency requirements." },
-    { id: "google-cloud", name: "Google Cloud environment", nodes: ["Google Cloud entry boundary", "Private service network", "Application compute"], note: "Select Google Cloud runtime services and validate service-to-service permissions." },
+    { id: "aws", name: "AWS environment", nodes: ["Amazon CloudFront<br/>Edge delivery", "Application Load Balancer<br/>Private application entry", "Amazon ECS<br/>Application runtime"], note: "Choose concrete AWS services, availability zones and private endpoints before deployment." },
+    { id: "azure", name: "Azure environment", nodes: ["Azure Front Door<br/>WAF and edge routing", "Azure API Management<br/>API gateway", "Azure Kubernetes Service<br/>Application runtime"], note: "Choose Azure services and identity assignments; validate network and data residency requirements." },
+    { id: "google-cloud", name: "Google Cloud environment", nodes: ["Google Cloud Load Balancing<br/>HTTPS entry", "Google Cloud API Gateway<br/>API boundary", "Google Cloud Run<br/>Application runtime"], note: "Select Google Cloud runtime services and validate service-to-service permissions." },
     { id: "kubernetes", name: "Kubernetes", nodes: ["Ingress controller", "Service", "Application deployment"], note: "Define namespaces, resource requests, network policies and persistent storage separately." },
     { id: "docker-compose", name: "Docker Compose", nodes: ["Reverse proxy", "Container network", "Application containers"], note: "Compose does not itself supply multi-host failover. Define persistent volumes and host recovery." },
     { id: "virtual-machines", name: "Virtual machines", nodes: ["Load balancer", "Private subnet", "Application virtual machines"], note: "Plan machine patching, service supervision, image management and replacement procedures." },
@@ -48,10 +50,13 @@ function getVariant(patternId, deploymentId, concernId) {
         return null;
     const { labels, edges } = coreGraph(pattern);
     const label = (s) => s.replace(/"/g, "'");
-    const code = ["flowchart LR", `  subgraph core["${label(pattern.title)}"]`, ...labels.map((n, i) => `    n${i}["${label(n)}"]`), ...edges.map(([a, b]) => `    n${a} --> n${b}`), "  end",
-        `  subgraph deployment["${label(deployment.name)}"]`, ...deployment.nodes.map((n, i) => `    d${i}["${label(n)}"]`), ...deployment.nodes.slice(1).map((_, i) => `    d${i} --> d${i + 1}`), "  end", `  d2 -. "runtime context" .-> n${Math.min(1, labels.length - 1)}`,
-        `  subgraph concern["${label(concern.name)}"]`, ...concern.nodes.map((n, i) => `    c${i}["${label(n)}"]`), ...concern.edges.map(([a, b]) => `    c${a} --> c${b}`), "  end", `  n${Math.min(1, labels.length - 1)} -. "design concern" .-> c0`].join("\n");
+    const declaration = (id, n) => /store|archive|database|ledger|cache|log$/i.test(n) ? `${id}[("${label(n)}")]` : `${id}["${label(n)}"]`;
+    const code = ["flowchart LR", `  subgraph core["${label(pattern.title)}"]`, ...labels.map((n, i) => `    ${declaration(`n${i}`, n)}`), ...edges.map(([a, b]) => `    n${a} --> n${b}`), "  end",
+        `  subgraph deployment["${label(deployment.name)}"]`, ...deployment.nodes.map((n, i) => `    ${declaration(`d${i}`, n)}`), ...deployment.nodes.slice(1).map((_, i) => `    d${i} --> d${i + 1}`), "  end", `  d2 -. "runtime context" .-> n${Math.min(1, labels.length - 1)}`,
+        `  subgraph concern["${label(concern.name)}"]`, ...concern.nodes.map((n, i) => `    ${declaration(`c${i}`, n)}`), ...concern.edges.map(([a, b]) => `    c${a} --> c${b}`), "  end", `  n${Math.min(1, labels.length - 1)} -. "design concern" .-> c0`].join("\n");
     const title = `${pattern.title} — ${deployment.name} / ${concern.name}`;
     return { pattern, deployment, concern, title, code, slug: `${pattern.slug}/${deployment.id}/${concern.id}`, license: "MIT", provenance: "Original Drawarc reference variant; generated composition, not a verified production deployment." };
 }
-function projectForVariant(v) { return { format: "drawarc", version: 1, title: v.title.slice(0, 120), diagrams: [{ id: "example-" + v.pattern.slug, title: v.pattern.title, code: v.code, messages: [], updatedAt: 0 }] }; }
+function projectForVariant(v) { return { format: "drawarc", version: 1, title: v.title.slice(0, 120), diagrams: [{ id: "example-" + v.pattern.slug, title: v.pattern.title, code: v.code, theme: { colorMode: "pastel", styleMode: "shadow", typeface: "clean" }, messages: [], updatedAt: 0 }] }; }
+function publicFileSlug(pattern, deployment = "aws", concern = "observability") { return deployment === "aws" && concern === "observability" ? pattern : `${pattern}--${deployment}--${concern}`; }
+function resolvePublicFile(slug) { const [p, d = "aws", c = "observability", extra] = slug.split("--"); return extra === undefined ? getVariant(p, d, c) : null; }

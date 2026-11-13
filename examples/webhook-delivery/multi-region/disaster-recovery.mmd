@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Reliable webhook delivery"]
     n0["Application"]
@@ -30,9 +30,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Disaster recovery"]
     c0["Backup coordinator"]
-    c1["Backup archive"]
-    c2["Isolated restore environment"]
-    c3["Restore verification"]
+    c1[("Backup archive")]
+    c2[("Isolated restore environment")]
+    c3[("Restore verification")]
     c0 --> c1
     c1 --> c2
     c2 --> c3

@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Progressive deployment rollout"]
     n0["Release pipeline"]
@@ -17,9 +17,9 @@ flowchart LR
     n3 --> n6
   end
   subgraph deployment["Google Cloud environment"]
-    d0["Google Cloud entry boundary"]
-    d1["Private service network"]
-    d2["Application compute"]
+    d0["Google Cloud Load Balancing<br/>HTTPS entry"]
+    d1["Google Cloud API Gateway<br/>API boundary"]
+    d2["Google Cloud Run<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

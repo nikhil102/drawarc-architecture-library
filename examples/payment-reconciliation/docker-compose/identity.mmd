@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Payment reconciliation"]
     n0["Payment provider"]
     n1["Settlement importer"]
-    n2["Raw settlement store"]
+    n2[("Raw settlement store")]
     n3["Matching worker"]
-    n4["Reconciliation ledger"]
+    n4[("Reconciliation ledger")]
     n5["Internal transactions"]
     n6["Exception queue"]
     n7["Operations review"]
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

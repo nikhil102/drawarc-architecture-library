@@ -1,15 +1,15 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Customer support ticket routing"]
     n0["Customer"]
     n1["Support intake"]
     n2["Ticket service"]
-    n3["Ticket store"]
+    n3[("Ticket store")]
     n4["Routing engine"]
     n5["Agent queue"]
     n6["Agent console"]
-    n7["Attachment store"]
+    n7[("Attachment store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -19,17 +19,17 @@ flowchart LR
     n1 --> n7
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

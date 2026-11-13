@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Cold chain telemetry review"]
     n0["Shipment sensors"]
     n1["Telemetry gateway"]
     n2["Shipment correlation"]
-    n3["Time series store"]
+    n3[("Time series store")]
     n4["Threshold evaluator"]
     n5["Exception queue"]
     n6["Operations review"]
@@ -17,15 +17,15 @@ flowchart LR
     n5 --> n6
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

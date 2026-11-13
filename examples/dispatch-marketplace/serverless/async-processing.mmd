@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Driver dispatch matching"]
     n0["Delivery request"]
@@ -8,7 +8,7 @@ flowchart LR
     n3["Offer queue"]
     n4["Driver app"]
     n5["Acceptance API"]
-    n6["Assignment ledger"]
+    n6[("Assignment ledger")]
     n0 --> n1
     n1 --> n2
     n1 --> n3
@@ -27,7 +27,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

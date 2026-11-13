@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Meter reading collection"]
     n0["Meter"]
     n1["Gateway"]
     n2["Reading intake"]
     n3["Deduplication"]
-    n4["Reading store"]
+    n4[("Reading store")]
     n5["Aggregation jobs"]
     n6["Usage report"]
     n7["Rejected readings"]
@@ -30,8 +30,8 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

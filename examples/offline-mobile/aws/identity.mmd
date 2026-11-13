@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Offline mobile synchronization"]
     n0["Mobile client"]
-    n1["Local change log"]
+    n1[("Local change log")]
     n2["Sync endpoint"]
     n3["Conflict detector"]
-    n4["Server store"]
+    n4[("Server store")]
     n5["Conflict inbox"]
     n6["Change feed"]
     n0 --> n1
@@ -18,9 +18,9 @@ flowchart LR
     n6 --> n0
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -28,7 +28,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

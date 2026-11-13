@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Offline mobile synchronization"]
     n0["Mobile client"]
-    n1["Local change log"]
+    n1[("Local change log")]
     n2["Sync endpoint"]
     n3["Conflict detector"]
-    n4["Server store"]
+    n4[("Server store")]
     n5["Conflict inbox"]
     n6["Change feed"]
     n0 --> n1
@@ -18,18 +18,18 @@ flowchart LR
     n6 --> n0
   end
   subgraph deployment["Google Cloud environment"]
-    d0["Google Cloud entry boundary"]
-    d1["Private service network"]
-    d2["Application compute"]
+    d0["Google Cloud Load Balancing<br/>HTTPS entry"]
+    d1["Google Cloud API Gateway<br/>API boundary"]
+    d2["Google Cloud Run<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Observability"]
     c0["Telemetry collector"]
-    c1["Metrics store"]
-    c2["Log store"]
-    c3["Trace store"]
+    c1[("Metrics store")]
+    c2[("Log store")]
+    c3[("Trace store")]
     c4["Alert evaluation"]
     c0 --> c1
     c0 --> c2

@@ -1,15 +1,15 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Customer support ticket routing"]
     n0["Customer"]
     n1["Support intake"]
     n2["Ticket service"]
-    n3["Ticket store"]
+    n3[("Ticket store")]
     n4["Routing engine"]
     n5["Agent queue"]
     n6["Agent console"]
-    n7["Attachment store"]
+    n7[("Attachment store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -19,18 +19,18 @@ flowchart LR
     n1 --> n7
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Disaster recovery"]
     c0["Backup coordinator"]
-    c1["Backup archive"]
-    c2["Isolated restore environment"]
-    c3["Restore verification"]
+    c1[("Backup archive")]
+    c2[("Isolated restore environment")]
+    c3[("Restore verification")]
     c0 --> c1
     c1 --> c2
     c2 --> c3

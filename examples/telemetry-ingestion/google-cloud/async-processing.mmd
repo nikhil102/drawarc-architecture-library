@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Device telemetry ingestion"]
     n0["Device"]
@@ -7,7 +7,7 @@ flowchart LR
     n2["Authentication"]
     n3["Telemetry broker"]
     n4["Validation worker"]
-    n5["Telemetry store"]
+    n5[("Telemetry store")]
     n6["Device state projection"]
     n0 --> n1
     n1 --> n2
@@ -17,9 +17,9 @@ flowchart LR
     n4 --> n6
   end
   subgraph deployment["Google Cloud environment"]
-    d0["Google Cloud entry boundary"]
-    d1["Private service network"]
-    d2["Application compute"]
+    d0["Google Cloud Load Balancing<br/>HTTPS entry"]
+    d1["Google Cloud API Gateway<br/>API boundary"]
+    d2["Google Cloud Run<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -27,7 +27,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

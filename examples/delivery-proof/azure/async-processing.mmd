@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Proof of delivery capture"]
     n0["Driver app"]
     n1["Upload service"]
-    n2["Evidence store"]
+    n2[("Evidence store")]
     n3["Delivery API"]
-    n4["Delivery ledger"]
+    n4[("Delivery ledger")]
     n5["Evidence validator"]
     n0 --> n1
     n1 --> n2
@@ -16,9 +16,9 @@ flowchart LR
     n5 --> n2
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -26,7 +26,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

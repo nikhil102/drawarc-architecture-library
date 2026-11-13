@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Security event aggregation"]
     n0["Security sources"]
     n1["Collection gateway"]
     n2["Event stream"]
     n3["Normalizer"]
-    n4["Security store"]
+    n4[("Security store")]
     n5["Detection rules"]
     n6["Investigation queue"]
     n7["Analyst console"]
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

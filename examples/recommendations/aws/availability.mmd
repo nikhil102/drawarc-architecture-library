@@ -1,13 +1,13 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Product recommendations"]
-    n0["Storefront"]
+    n0[("Storefront")]
     n1["Recommendation API"]
-    n2["Feature cache"]
+    n2[("Feature cache")]
     n3["Interaction events"]
     n4["Feature pipeline"]
-    n5["Feature store"]
+    n5[("Feature store")]
     n6["Model training"]
     n7["Model registry"]
     n0 --> n1
@@ -19,9 +19,9 @@ flowchart LR
     n7 --> n1
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

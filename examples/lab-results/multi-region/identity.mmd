@@ -1,15 +1,15 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Laboratory result delivery"]
     n0["Laboratory system"]
     n1["Result ingestion"]
     n2["Validation queue"]
-    n3["Result store"]
+    n3[("Result store")]
     n4["Clinician portal"]
     n5["Access policy"]
     n6["Result API"]
-    n7["Audit log"]
+    n7[("Audit log")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -31,7 +31,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

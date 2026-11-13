@@ -1,14 +1,14 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Application secret rotation"]
     n0["Rotation scheduler"]
     n1["Secret manager"]
-    n2["Versioned secret store"]
+    n2[("Versioned secret store")]
     n3["Deployment notifier"]
     n4["Application reload"]
     n5["Application"]
-    n6["Audit log"]
+    n6[("Audit log")]
     n0 --> n1
     n1 --> n2
     n1 --> n3
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

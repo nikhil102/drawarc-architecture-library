@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Payment reconciliation"]
     n0["Payment provider"]
     n1["Settlement importer"]
-    n2["Raw settlement store"]
+    n2[("Raw settlement store")]
     n3["Matching worker"]
-    n4["Reconciliation ledger"]
+    n4[("Reconciliation ledger")]
     n5["Internal transactions"]
     n6["Exception queue"]
     n7["Operations review"]
@@ -19,9 +19,9 @@ flowchart LR
     n6 --> n7
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

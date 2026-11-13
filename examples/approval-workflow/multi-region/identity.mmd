@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Document approval workflow"]
     n0["Requester"]
@@ -7,7 +7,7 @@ flowchart LR
     n2["Document versions"]
     n3["Approval engine"]
     n4["Reviewer inbox"]
-    n5["Decision ledger"]
+    n5[("Decision ledger")]
     n6["Status API"]
     n0 --> n1
     n1 --> n2
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

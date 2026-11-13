@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Distributed build cache"]
     n0["Build runner"]
-    n1["Cache API"]
-    n2["Cache key index"]
-    n3["Artifact store"]
+    n1[("Cache API")]
+    n2[("Cache key index")]
+    n3[("Artifact store")]
     n4["Build worker"]
     n5["Artifact validator"]
     n0 --> n1
@@ -27,9 +27,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Disaster recovery"]
     c0["Backup coordinator"]
-    c1["Backup archive"]
-    c2["Isolated restore environment"]
-    c3["Restore verification"]
+    c1[("Backup archive")]
+    c2[("Isolated restore environment")]
+    c3[("Restore verification")]
     c0 --> c1
     c1 --> c2
     c2 --> c3

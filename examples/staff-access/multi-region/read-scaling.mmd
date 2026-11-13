@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Staff access provisioning"]
     n0["HR events"]
@@ -8,7 +8,7 @@ flowchart LR
     n3["Identity provider"]
     n4["Access registry"]
     n5["Application access"]
-    n6["Audit log"]
+    n6[("Audit log")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

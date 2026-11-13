@@ -1,15 +1,15 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Customer support ticket routing"]
     n0["Customer"]
     n1["Support intake"]
     n2["Ticket service"]
-    n3["Ticket store"]
+    n3[("Ticket store")]
     n4["Routing engine"]
     n5["Agent queue"]
     n6["Agent console"]
-    n7["Attachment store"]
+    n7[("Attachment store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -19,9 +19,9 @@ flowchart LR
     n1 --> n7
   end
   subgraph deployment["Google Cloud environment"]
-    d0["Google Cloud entry boundary"]
-    d1["Private service network"]
-    d2["Application compute"]
+    d0["Google Cloud Load Balancing<br/>HTTPS entry"]
+    d1["Google Cloud API Gateway<br/>API boundary"]
+    d2["Google Cloud Run<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

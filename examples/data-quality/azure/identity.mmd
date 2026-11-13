@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Data quality validation"]
     n0["Dataset arrival"]
@@ -7,7 +7,7 @@ flowchart LR
     n2["Quality checks"]
     n3["Validation results"]
     n4["Accepted datasets"]
-    n5["Data catalog"]
+    n5[("Data catalog")]
     n6["Rejected datasets"]
     n7["Steward review"]
     n0 --> n1
@@ -19,9 +19,9 @@ flowchart LR
     n6 --> n7
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

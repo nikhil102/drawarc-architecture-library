@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Collaborative document editing"]
     n0["Editor"]
     n1["Local draft"]
     n2["Sync gateway"]
     n3["Revision service"]
-    n4["Document store"]
+    n4[("Document store")]
     n5["Change broadcaster"]
     n6["Other editors"]
     n7["Conflict recovery"]
@@ -19,9 +19,9 @@ flowchart LR
     n3 --> n7
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

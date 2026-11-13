@@ -1,10 +1,10 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Device command dispatch"]
     n0["Operator"]
     n1["Command API"]
-    n2["Command ledger"]
+    n2[("Command ledger")]
     n3["Dispatch queue"]
     n4["Device gateway"]
     n5["Device"]
@@ -27,9 +27,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Observability"]
     c0["Telemetry collector"]
-    c1["Metrics store"]
-    c2["Log store"]
-    c3["Trace store"]
+    c1[("Metrics store")]
+    c2[("Log store")]
+    c3[("Trace store")]
     c4["Alert evaluation"]
     c0 --> c1
     c0 --> c2

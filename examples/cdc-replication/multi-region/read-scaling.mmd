@@ -1,9 +1,9 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Change data capture pipeline"]
     n0["Application"]
-    n1["Primary database"]
+    n1[("Primary database")]
     n2["Change capture"]
     n3["Change topic"]
     n4["Projection worker"]
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

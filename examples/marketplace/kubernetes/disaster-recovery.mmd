@@ -1,16 +1,16 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Multi-seller marketplace"]
     n0["Buyer"]
     n1["Marketplace API"]
     n2["Order service"]
-    n3["Orders database"]
+    n3[("Orders database")]
     n4["Seller"]
     n5["Seller portal"]
     n6["Catalog service"]
-    n7["Catalog database"]
-    n8["Payout ledger"]
+    n7[("Catalog database")]
+    n8[("Payout ledger")]
     n9["Reconciliation worker"]
     n0 --> n1
     n1 --> n2
@@ -31,9 +31,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Disaster recovery"]
     c0["Backup coordinator"]
-    c1["Backup archive"]
-    c2["Isolated restore environment"]
-    c3["Restore verification"]
+    c1[("Backup archive")]
+    c2[("Isolated restore environment")]
+    c3[("Restore verification")]
     c0 --> c1
     c1 --> c2
     c2 --> c3

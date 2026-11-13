@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Feature flag evaluation"]
     n0["Operator"]
     n1["Flag management API"]
-    n2["Flag store"]
+    n2[("Flag store")]
     n3["Distribution stream"]
-    n4["SDK cache"]
+    n4[("SDK cache")]
     n5["Application"]
     n6["Exposure events"]
     n7["Analytics collector"]
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

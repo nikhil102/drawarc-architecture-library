@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Certificate lifecycle management"]
     n0["Certificate inventory"]
     n1["Renewal scheduler"]
     n2["Certificate authority"]
-    n3["Certificate store"]
+    n3[("Certificate store")]
     n4["Deployment agent"]
     n5["Service endpoint"]
     n6["Expiry monitor"]
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

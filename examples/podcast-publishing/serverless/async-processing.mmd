@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Podcast publishing pipeline"]
     n0["Producer"]
     n1["Publishing API"]
-    n2["Metadata store"]
-    n3["Audio store"]
+    n2[("Metadata store")]
+    n3[("Audio store")]
     n4["Audio processing"]
     n5["Release scheduler"]
     n6["Feed generator"]
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

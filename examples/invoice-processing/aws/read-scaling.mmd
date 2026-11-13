@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Invoice processing"]
     n0["Supplier"]
     n1["Upload API"]
-    n2["Document store"]
+    n2[("Document store")]
     n3["Extraction worker"]
-    n4["Invoice database"]
+    n4[("Invoice database")]
     n5["Purchase order matching"]
     n6["Review queue"]
     n7["Accounts payable"]
@@ -19,15 +19,15 @@ flowchart LR
     n6 --> n7
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

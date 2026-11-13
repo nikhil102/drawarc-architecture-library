@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Consent record management"]
     n0["Portal"]
@@ -8,7 +8,7 @@ flowchart LR
     n3["Application"]
     n4["Consent policy service"]
     n5["Audit stream"]
-    n6["Audit archive"]
+    n6[("Audit archive")]
     n0 --> n1
     n1 --> n2
     n3 --> n4
@@ -17,18 +17,18 @@ flowchart LR
     n5 --> n6
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Observability"]
     c0["Telemetry collector"]
-    c1["Metrics store"]
-    c2["Log store"]
-    c3["Trace store"]
+    c1[("Metrics store")]
+    c2[("Log store")]
+    c3[("Trace store")]
     c4["Alert evaluation"]
     c0 --> c1
     c0 --> c2

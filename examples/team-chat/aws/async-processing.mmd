@@ -1,14 +1,14 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Team messaging system"]
     n0["User"]
     n1["Chat gateway"]
     n2["Message service"]
-    n3["Message store"]
+    n3[("Message store")]
     n4["Delivery broker"]
     n5["Connected clients"]
-    n6["Presence store"]
+    n6[("Presence store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -17,9 +17,9 @@ flowchart LR
     n1 --> n6
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -27,7 +27,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Appointment scheduling"]
     n0["Patient"]
     n1["Booking portal"]
     n2["Scheduling API"]
-    n3["Availability store"]
-    n4["Booking ledger"]
+    n3[("Availability store")]
+    n4[("Booking ledger")]
     n5["Reminder queue"]
     n6["Notification provider"]
     n0 --> n1
@@ -17,9 +17,9 @@ flowchart LR
     n5 --> n6
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

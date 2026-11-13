@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Certificate lifecycle management"]
     n0["Certificate inventory"]
     n1["Renewal scheduler"]
     n2["Certificate authority"]
-    n3["Certificate store"]
+    n3[("Certificate store")]
     n4["Deployment agent"]
     n5["Service endpoint"]
     n6["Expiry monitor"]
@@ -17,9 +17,9 @@ flowchart LR
     n5 --> n6
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Payment reconciliation"]
     n0["Payment provider"]
     n1["Settlement importer"]
-    n2["Raw settlement store"]
+    n2[("Raw settlement store")]
     n3["Matching worker"]
-    n4["Reconciliation ledger"]
+    n4[("Reconciliation ledger")]
     n5["Internal transactions"]
     n6["Exception queue"]
     n7["Operations review"]
@@ -28,9 +28,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Observability"]
     c0["Telemetry collector"]
-    c1["Metrics store"]
-    c2["Log store"]
-    c3["Trace store"]
+    c1[("Metrics store")]
+    c2[("Log store")]
+    c3[("Trace store")]
     c4["Alert evaluation"]
     c0 --> c1
     c0 --> c2

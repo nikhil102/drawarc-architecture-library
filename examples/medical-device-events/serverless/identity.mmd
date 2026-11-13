@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Medical device event intake"]
     n0["Device gateway"]
     n1["Event broker"]
     n2["Validation worker"]
-    n3["Telemetry store"]
+    n3[("Telemetry store")]
     n4["Invalid event queue"]
     n5["Operations dashboard"]
     n0 --> n1
@@ -25,7 +25,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

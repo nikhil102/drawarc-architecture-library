@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Digital asset access control"]
     n0["Viewer"]
     n1["Asset API"]
     n2["Entitlement service"]
-    n3["Subscription store"]
+    n3[("Subscription store")]
     n4["Signed access issuer"]
     n5["Asset CDN"]
     n6["Access audit"]
@@ -26,8 +26,8 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

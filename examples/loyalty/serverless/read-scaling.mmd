@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Loyalty points ledger"]
     n0["Order events"]
     n1["Loyalty consumer"]
-    n2["Deduplication store"]
-    n3["Points ledger"]
+    n2[("Deduplication store")]
+    n3[("Points ledger")]
     n4["Customer"]
     n5["Balance API"]
     n6["Expiry scheduler"]
@@ -25,7 +25,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

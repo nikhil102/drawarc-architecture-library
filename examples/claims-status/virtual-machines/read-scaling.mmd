@@ -1,10 +1,10 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Claim status tracking"]
     n0["Payer adapter"]
     n1["Status ingestion"]
-    n2["Status event store"]
+    n2[("Status event store")]
     n3["Claim projection"]
     n4["Member portal"]
     n5["Status API"]
@@ -25,7 +25,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

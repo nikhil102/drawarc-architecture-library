@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Proof of delivery capture"]
     n0["Driver app"]
     n1["Upload service"]
-    n2["Evidence store"]
+    n2[("Evidence store")]
     n3["Delivery API"]
-    n4["Delivery ledger"]
+    n4[("Delivery ledger")]
     n5["Evidence validator"]
     n0 --> n1
     n1 --> n2
@@ -25,9 +25,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Disaster recovery"]
     c0["Backup coordinator"]
-    c1["Backup archive"]
-    c2["Isolated restore environment"]
-    c3["Restore verification"]
+    c1[("Backup archive")]
+    c2[("Isolated restore environment")]
+    c3[("Restore verification")]
     c0 --> c1
     c1 --> c2
     c2 --> c3

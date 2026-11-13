@@ -1,15 +1,15 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Online storefront checkout"]
     n0["Shopper"]
-    n1["Storefront"]
+    n1[("Storefront")]
     n2["Catalog service"]
-    n3["Product database"]
+    n3[("Product database")]
     n4["Checkout"]
     n5["Payment gateway"]
     n6["Order service"]
-    n7["Order database"]
+    n7[("Order database")]
     n8["Notification service"]
     n0 --> n1
     n1 --> n2
@@ -30,8 +30,8 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

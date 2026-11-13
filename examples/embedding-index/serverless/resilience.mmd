@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Document embedding ingestion"]
     n0["Document source"]
     n1["Ingestion queue"]
     n2["Parser"]
-    n3["Chunk store"]
+    n3[("Chunk store")]
     n4["Embedding worker"]
     n5["Vector index"]
     n6["Parsing failures"]

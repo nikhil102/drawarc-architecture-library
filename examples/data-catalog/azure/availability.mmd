@@ -1,10 +1,10 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Data discovery catalog"]
     n0["Source systems"]
     n1["Metadata crawlers"]
-    n2["Metadata store"]
+    n2[("Metadata store")]
     n3["Steward"]
     n4["Catalog editor"]
     n5["Analyst"]
@@ -21,9 +21,9 @@ flowchart LR
     n8 --> n7
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

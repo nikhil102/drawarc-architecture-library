@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["API authentication boundary"]
     n0["Client"]
@@ -9,7 +9,7 @@ flowchart LR
     n4["Token validator"]
     n5["Policy engine"]
     n6["Application"]
-    n7["Policy store"]
+    n7[("Policy store")]
     n8["Audit collector"]
     n0 --> n1
     n1 --> n2
@@ -21,17 +21,17 @@ flowchart LR
     n6 --> n8
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

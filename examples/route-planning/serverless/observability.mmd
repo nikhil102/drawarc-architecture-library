@@ -1,9 +1,9 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Delivery route planning"]
     n0["Orders"]
-    n1["Shipment store"]
+    n1[("Shipment store")]
     n2["Planning scheduler"]
     n3["Route solver"]
     n4["Route plans"]
@@ -28,9 +28,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Observability"]
     c0["Telemetry collector"]
-    c1["Metrics store"]
-    c2["Log store"]
-    c3["Trace store"]
+    c1[("Metrics store")]
+    c2[("Log store")]
+    c3[("Trace store")]
     c4["Alert evaluation"]
     c0 --> c1
     c0 --> c2

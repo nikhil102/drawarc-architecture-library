@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Meter reading collection"]
     n0["Meter"]
     n1["Gateway"]
     n2["Reading intake"]
     n3["Deduplication"]
-    n4["Reading store"]
+    n4[("Reading store")]
     n5["Aggregation jobs"]
     n6["Usage report"]
     n7["Rejected readings"]
@@ -19,9 +19,9 @@ flowchart LR
     n2 --> n7
   end
   subgraph deployment["Google Cloud environment"]
-    d0["Google Cloud entry boundary"]
-    d1["Private service network"]
-    d2["Application compute"]
+    d0["Google Cloud Load Balancing<br/>HTTPS entry"]
+    d1["Google Cloud API Gateway<br/>API boundary"]
+    d2["Google Cloud Run<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

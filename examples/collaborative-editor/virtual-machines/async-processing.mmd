@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Collaborative document editing"]
     n0["Editor"]
     n1["Local draft"]
     n2["Sync gateway"]
     n3["Revision service"]
-    n4["Document store"]
+    n4[("Document store")]
     n5["Change broadcaster"]
     n6["Other editors"]
     n7["Conflict recovery"]
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

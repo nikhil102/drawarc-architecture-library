@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Certificate lifecycle management"]
     n0["Certificate inventory"]
     n1["Renewal scheduler"]
     n2["Certificate authority"]
-    n3["Certificate store"]
+    n3[("Certificate store")]
     n4["Deployment agent"]
     n5["Service endpoint"]
     n6["Expiry monitor"]
@@ -27,7 +27,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

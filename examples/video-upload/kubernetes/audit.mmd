@@ -1,14 +1,14 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Video upload and processing"]
     n0["Creator"]
     n1["Upload API"]
-    n2["Object store"]
+    n2[("Object store")]
     n3["Processing queue"]
     n4["Transcode workers"]
     n5["Published assets"]
-    n6["Processing status store"]
+    n6[("Processing status store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -26,8 +26,8 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

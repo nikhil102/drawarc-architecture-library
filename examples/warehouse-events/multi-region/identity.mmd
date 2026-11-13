@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Warehouse scanning events"]
     n0["Scanner"]
     n1["Scan gateway"]
     n2["Validation worker"]
-    n3["Movement ledger"]
+    n3[("Movement ledger")]
     n4["Exception queue"]
     n5["Inventory projection"]
     n0 --> n1
@@ -27,7 +27,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

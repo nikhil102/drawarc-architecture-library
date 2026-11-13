@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Warehouse scanning events"]
     n0["Scanner"]
     n1["Scan gateway"]
     n2["Validation worker"]
-    n3["Movement ledger"]
+    n3[("Movement ledger")]
     n4["Exception queue"]
     n5["Inventory projection"]
     n0 --> n1
@@ -15,9 +15,9 @@ flowchart LR
     n3 --> n5
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

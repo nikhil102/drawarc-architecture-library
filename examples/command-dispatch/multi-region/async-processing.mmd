@@ -1,10 +1,10 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Device command dispatch"]
     n0["Operator"]
     n1["Command API"]
-    n2["Command ledger"]
+    n2[("Command ledger")]
     n3["Dispatch queue"]
     n4["Device gateway"]
     n5["Device"]
@@ -30,7 +30,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

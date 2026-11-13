@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Content moderation review"]
     n0["Upload events"]
@@ -7,7 +7,7 @@ flowchart LR
     n2["Screening worker"]
     n3["Review queue"]
     n4["Reviewer console"]
-    n5["Decision store"]
+    n5[("Decision store")]
     n6["Publication service"]
     n0 --> n1
     n1 --> n2
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

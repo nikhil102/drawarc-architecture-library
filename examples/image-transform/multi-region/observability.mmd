@@ -1,13 +1,13 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Image transformation service"]
     n0["Browser"]
     n1["Image CDN"]
     n2["Transform API"]
-    n3["Source image store"]
+    n3[("Source image store")]
     n4["Image worker"]
-    n5["Derived image store"]
+    n5[("Derived image store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -27,9 +27,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Observability"]
     c0["Telemetry collector"]
-    c1["Metrics store"]
-    c2["Log store"]
-    c3["Trace store"]
+    c1[("Metrics store")]
+    c2[("Log store")]
+    c3[("Trace store")]
     c4["Alert evaluation"]
     c0 --> c1
     c0 --> c2

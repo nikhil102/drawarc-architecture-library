@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Appointment scheduling"]
     n0["Patient"]
     n1["Booking portal"]
     n2["Scheduling API"]
-    n3["Availability store"]
-    n4["Booking ledger"]
+    n3[("Availability store")]
+    n4[("Booking ledger")]
     n5["Reminder queue"]
     n6["Notification provider"]
     n0 --> n1
@@ -29,7 +29,7 @@ flowchart LR
   subgraph concern["Asynchronous processing"]
     c0["Work queue"]
     c1["Background worker"]
-    c2["Result store"]
+    c2[("Result store")]
     c3["Dead letter queue"]
     c0 --> c1
     c1 --> c2

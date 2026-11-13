@@ -1,10 +1,10 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Refund request ledger"]
     n0["Support console"]
     n1["Refund API"]
-    n2["Refund ledger"]
+    n2[("Refund ledger")]
     n3["Provider adapter"]
     n4["Payment provider"]
     n5["Webhook receiver"]
@@ -18,9 +18,9 @@ flowchart LR
     n2 --> n6
   end
   subgraph deployment["Azure environment"]
-    d0["Azure entry boundary"]
-    d1["Application subnet"]
-    d2["Azure application runtime"]
+    d0["Azure Front Door<br/>WAF and edge routing"]
+    d1["Azure API Management<br/>API gateway"]
+    d2["Azure Kubernetes Service<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

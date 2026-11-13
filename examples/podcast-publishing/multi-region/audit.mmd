@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Podcast publishing pipeline"]
     n0["Producer"]
     n1["Publishing API"]
-    n2["Metadata store"]
-    n3["Audio store"]
+    n2[("Metadata store")]
+    n3[("Audio store")]
     n4["Audio processing"]
     n5["Release scheduler"]
     n6["Feed generator"]
@@ -30,8 +30,8 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

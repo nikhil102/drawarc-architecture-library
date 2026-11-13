@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Intermittent edge synchronization"]
     n0["Edge application"]
     n1["Local event journal"]
     n2["Sync agent"]
     n3["Cloud intake"]
-    n4["Acknowledgement store"]
+    n4[("Acknowledgement store")]
     n5["Event processor"]
     n0 --> n1
     n1 --> n2
@@ -27,9 +27,9 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Disaster recovery"]
     c0["Backup coordinator"]
-    c1["Backup archive"]
-    c2["Isolated restore environment"]
-    c3["Restore verification"]
+    c1[("Backup archive")]
+    c2[("Isolated restore environment")]
+    c3[("Restore verification")]
     c0 --> c1
     c1 --> c2
     c2 --> c3

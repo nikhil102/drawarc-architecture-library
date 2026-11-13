@@ -1,5 +1,5 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["API authentication boundary"]
     n0["Client"]
@@ -9,7 +9,7 @@ flowchart LR
     n4["Token validator"]
     n5["Policy engine"]
     n6["Application"]
-    n7["Policy store"]
+    n7[("Policy store")]
     n8["Audit collector"]
     n0 --> n1
     n1 --> n2
@@ -21,9 +21,9 @@ flowchart LR
     n6 --> n8
   end
   subgraph deployment["Google Cloud environment"]
-    d0["Google Cloud entry boundary"]
-    d1["Private service network"]
-    d2["Application compute"]
+    d0["Google Cloud Load Balancing<br/>HTTPS entry"]
+    d1["Google Cloud API Gateway<br/>API boundary"]
+    d2["Google Cloud Run<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end
@@ -31,7 +31,7 @@ flowchart LR
   subgraph concern["Identity and access"]
     c0["Identity provider"]
     c1["Authorization policy"]
-    c2["Access decision log"]
+    c2[("Access decision log")]
     c0 --> c1
     c1 --> c2
   end

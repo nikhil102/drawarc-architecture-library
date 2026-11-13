@@ -1,11 +1,11 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Product returns workflow"]
     n0["Customer"]
     n1["Returns portal"]
     n2["Returns service"]
-    n3["Returns database"]
+    n3[("Returns database")]
     n4["Warehouse inspection"]
     n5["Refund service"]
     n6["Payment provider"]
@@ -26,8 +26,8 @@ flowchart LR
   d2 -. "runtime context" .-> n1
   subgraph concern["Auditability"]
     c0["Audit event intake"]
-    c1["Append-only event log"]
-    c2["Retention archive"]
+    c1[("Append-only event log")]
+    c2[("Retention archive")]
     c3["Review interface"]
     c0 --> c1
     c1 --> c2

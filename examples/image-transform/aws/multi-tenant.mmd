@@ -1,13 +1,13 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Image transformation service"]
     n0["Browser"]
     n1["Image CDN"]
     n2["Transform API"]
-    n3["Source image store"]
+    n3[("Source image store")]
     n4["Image worker"]
-    n5["Derived image store"]
+    n5[("Derived image store")]
     n0 --> n1
     n1 --> n2
     n2 --> n3
@@ -16,9 +16,9 @@ flowchart LR
     n5 --> n1
   end
   subgraph deployment["AWS environment"]
-    d0["AWS ingress boundary"]
-    d1["Private application network"]
-    d2["Application runtime"]
+    d0["Amazon CloudFront<br/>Edge delivery"]
+    d1["Application Load Balancer<br/>Private application entry"]
+    d2["Amazon ECS<br/>Application runtime"]
     d0 --> d1
     d1 --> d2
   end

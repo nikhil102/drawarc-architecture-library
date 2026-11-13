@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Invoice processing"]
     n0["Supplier"]
     n1["Upload API"]
-    n2["Document store"]
+    n2[("Document store")]
     n3["Extraction worker"]
-    n4["Invoice database"]
+    n4[("Invoice database")]
     n5["Purchase order matching"]
     n6["Review queue"]
     n7["Accounts payable"]
@@ -27,7 +27,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1

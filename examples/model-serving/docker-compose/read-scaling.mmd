@@ -1,12 +1,12 @@
-%% MIT License - Copyright 2026 Drawarc contributors
-%% Generated reference composition; validate before use.
+%% MIT licensed — Drawarc original reference composition.
+%% Generated variant; validate before deployment.
 flowchart LR
   subgraph core["Model inference service"]
     n0["Client"]
     n1["Inference API"]
     n2["Model runtime"]
     n3["Prediction response"]
-    n4["Feature store"]
+    n4[("Feature store")]
     n5["Model registry"]
     n6["Prediction events"]
     n7["Monitoring pipeline"]
@@ -26,7 +26,7 @@ flowchart LR
   end
   d2 -. "runtime context" .-> n1
   subgraph concern["Read scaling"]
-    c0["Read cache"]
+    c0[("Read cache")]
     c1["Read model"]
     c2["Projection updates"]
     c0 --> c1
