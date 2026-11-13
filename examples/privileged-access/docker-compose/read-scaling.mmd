@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Privileged operation approval"]
+    n0["Operator"]
+    n1["Access request"]
+    n2["Approval queue"]
+    n3["Approver"]
+    n4["Access broker"]
+    n5["Administrative endpoint"]
+    n6["Session audit"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n4 --> n6
+  end
+  subgraph deployment["Docker Compose"]
+    d0["Reverse proxy"]
+    d1["Container network"]
+    d2["Application containers"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Read scaling"]
+    c0["Read cache"]
+    c1["Read model"]
+    c2["Projection updates"]
+    c0 --> c1
+    c2 --> c1
+  end
+  n1 -. "design concern" .-> c0

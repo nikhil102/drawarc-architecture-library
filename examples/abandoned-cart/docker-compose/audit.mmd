@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Abandoned cart recovery"]
+    n0["Cart events"]
+    n1["Cart state store"]
+    n2["Recovery scheduler"]
+    n3["Consent check"]
+    n4["Message queue"]
+    n5["Notification provider"]
+    n6["Order events"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n6 --> n1
+  end
+  subgraph deployment["Docker Compose"]
+    d0["Reverse proxy"]
+    d1["Container network"]
+    d2["Application containers"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Auditability"]
+    c0["Audit event intake"]
+    c1["Append-only event log"]
+    c2["Retention archive"]
+    c3["Review interface"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

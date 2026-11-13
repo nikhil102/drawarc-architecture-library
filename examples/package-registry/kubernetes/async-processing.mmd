@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Package registry service"]
+    n0["Publisher"]
+    n1["Publish API"]
+    n2["Validation worker"]
+    n3["Package metadata"]
+    n4["Artifact store"]
+    n5["Developer"]
+    n6["Registry API"]
+    n7["Artifact CDN"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n5 --> n6
+    n6 --> n3
+    n6 --> n7
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Asynchronous processing"]
+    c0["Work queue"]
+    c1["Background worker"]
+    c2["Result store"]
+    c3["Dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c1 --> c3
+  end
+  n1 -. "design concern" .-> c0

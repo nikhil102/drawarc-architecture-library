@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Medical device event intake"]
+    n0["Device gateway"]
+    n1["Event broker"]
+    n2["Validation worker"]
+    n3["Telemetry store"]
+    n4["Invalid event queue"]
+    n5["Operations dashboard"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n3 --> n5
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

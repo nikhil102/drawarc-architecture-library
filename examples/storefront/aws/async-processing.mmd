@@ -1,0 +1,40 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Online storefront checkout"]
+    n0["Shopper"]
+    n1["Storefront"]
+    n2["Catalog service"]
+    n3["Product database"]
+    n4["Checkout"]
+    n5["Payment gateway"]
+    n6["Order service"]
+    n7["Order database"]
+    n8["Notification service"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n4 --> n5
+    n4 --> n6
+    n6 --> n7
+    n6 --> n8
+  end
+  subgraph deployment["AWS environment"]
+    d0["AWS ingress boundary"]
+    d1["Private application network"]
+    d2["Application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Asynchronous processing"]
+    c0["Work queue"]
+    c1["Background worker"]
+    c2["Result store"]
+    c3["Dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c1 --> c3
+  end
+  n1 -. "design concern" .-> c0

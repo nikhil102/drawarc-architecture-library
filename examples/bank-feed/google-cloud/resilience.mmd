@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Bank feed ingestion"]
+    n0["Bank connector"]
+    n1["Ingestion queue"]
+    n2["Normalizer"]
+    n3["Transaction store"]
+    n4["Validation errors"]
+    n5["Operations console"]
+    n6["Reconciliation worker"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n4 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["Google Cloud environment"]
+    d0["Google Cloud entry boundary"]
+    d1["Private service network"]
+    d2["Application compute"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

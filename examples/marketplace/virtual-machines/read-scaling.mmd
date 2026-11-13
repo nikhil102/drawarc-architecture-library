@@ -1,0 +1,39 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Multi-seller marketplace"]
+    n0["Buyer"]
+    n1["Marketplace API"]
+    n2["Order service"]
+    n3["Orders database"]
+    n4["Seller"]
+    n5["Seller portal"]
+    n6["Catalog service"]
+    n7["Catalog database"]
+    n8["Payout ledger"]
+    n9["Reconciliation worker"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+    n2 --> n8
+    n8 --> n9
+  end
+  subgraph deployment["Virtual machines"]
+    d0["Load balancer"]
+    d1["Private subnet"]
+    d2["Application virtual machines"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Read scaling"]
+    c0["Read cache"]
+    c1["Read model"]
+    c2["Projection updates"]
+    c0 --> c1
+    c2 --> c1
+  end
+  n1 -. "design concern" .-> c0

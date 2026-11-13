@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Stream processing topology"]
+    n0["Producers"]
+    n1["Event broker"]
+    n2["Stream processor"]
+    n3["Serving store"]
+    n4["Replay archive"]
+    n5["Dead letter topic"]
+    n6["Query API"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n2 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["AWS environment"]
+    d0["AWS ingress boundary"]
+    d1["Private application network"]
+    d2["Application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

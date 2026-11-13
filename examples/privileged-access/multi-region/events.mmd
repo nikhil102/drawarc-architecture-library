@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Privileged operation approval"]
+    n0["Operator"]
+    n1["Access request"]
+    n2["Approval queue"]
+    n3["Approver"]
+    n4["Access broker"]
+    n5["Administrative endpoint"]
+    n6["Session audit"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n4 --> n6
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Event-driven integration"]
+    c0["Transactional outbox"]
+    c1["Event broker"]
+    c2["Downstream consumer"]
+    c3["Consumer dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

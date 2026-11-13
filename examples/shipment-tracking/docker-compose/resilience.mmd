@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Shipment tracking events"]
+    n0["Carrier adapters"]
+    n1["Tracking intake"]
+    n2["Event deduplication"]
+    n3["Tracking history"]
+    n4["Status projector"]
+    n5["Shipment status"]
+    n6["Customer"]
+    n7["Tracking API"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n6 --> n7
+    n7 --> n5
+  end
+  subgraph deployment["Docker Compose"]
+    d0["Reverse proxy"]
+    d1["Container network"]
+    d2["Application containers"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

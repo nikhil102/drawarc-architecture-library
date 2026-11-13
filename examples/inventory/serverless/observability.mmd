@@ -1,0 +1,35 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Inventory reservation"]
+    n0["Checkout"]
+    n1["Reservation API"]
+    n2["Stock ledger"]
+    n3["Reservation expiry queue"]
+    n4["Release worker"]
+    n0 --> n1
+    n1 --> n2
+    n1 --> n3
+    n3 --> n4
+    n4 --> n2
+  end
+  subgraph deployment["Serverless application"]
+    d0["Request or event gateway"]
+    d1["Function dispatcher"]
+    d2["Application functions"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

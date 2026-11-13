@@ -1,0 +1,35 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Device command dispatch"]
+    n0["Operator"]
+    n1["Command API"]
+    n2["Command ledger"]
+    n3["Dispatch queue"]
+    n4["Device gateway"]
+    n5["Device"]
+    n6["Acknowledgement intake"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n2
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

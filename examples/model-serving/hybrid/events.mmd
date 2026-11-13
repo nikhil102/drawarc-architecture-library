@@ -1,0 +1,37 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Model inference service"]
+    n0["Client"]
+    n1["Inference API"]
+    n2["Model runtime"]
+    n3["Prediction response"]
+    n4["Feature store"]
+    n5["Model registry"]
+    n6["Prediction events"]
+    n7["Monitoring pipeline"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n5 --> n2
+    n6 --> n7
+  end
+  subgraph deployment["Hybrid environment"]
+    d0["Cloud entry boundary"]
+    d1["Private connectivity"]
+    d2["Datacenter application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Event-driven integration"]
+    c0["Transactional outbox"]
+    c1["Event broker"]
+    c2["Downstream consumer"]
+    c3["Consumer dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

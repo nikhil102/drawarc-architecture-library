@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Invoice processing"]
+    n0["Supplier"]
+    n1["Upload API"]
+    n2["Document store"]
+    n3["Extraction worker"]
+    n4["Invoice database"]
+    n5["Purchase order matching"]
+    n6["Review queue"]
+    n7["Accounts payable"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

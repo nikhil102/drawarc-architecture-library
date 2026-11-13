@@ -1,0 +1,37 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Offline mobile synchronization"]
+    n0["Mobile client"]
+    n1["Local change log"]
+    n2["Sync endpoint"]
+    n3["Conflict detector"]
+    n4["Server store"]
+    n5["Conflict inbox"]
+    n6["Change feed"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n3 --> n5
+    n4 --> n6
+    n6 --> n0
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Auditability"]
+    c0["Audit event intake"]
+    c1["Append-only event log"]
+    c2["Retention archive"]
+    c3["Review interface"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

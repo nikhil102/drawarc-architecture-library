@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Batch analytics pipeline"]
+    n0["Source databases"]
+    n1["Extraction jobs"]
+    n2["Raw object store"]
+    n3["Validation jobs"]
+    n4["Transformation jobs"]
+    n5["Analytics warehouse"]
+    n6["Rejected records"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["Hybrid environment"]
+    d0["Cloud entry boundary"]
+    d1["Private connectivity"]
+    d2["Datacenter application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Disaster recovery"]
+    c0["Backup coordinator"]
+    c1["Backup archive"]
+    c2["Isolated restore environment"]
+    c3["Restore verification"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

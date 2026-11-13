@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Transaction risk review"]
+    n0["Transaction API"]
+    n1["Risk signal collector"]
+    n2["Risk rules"]
+    n3["Decision log"]
+    n4["Review queue"]
+    n5["Analyst console"]
+    n6["Payment execution"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n4 --> n5
+    n0 --> n6
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Asynchronous processing"]
+    c0["Work queue"]
+    c1["Background worker"]
+    c2["Result store"]
+    c3["Dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c1 --> c3
+  end
+  n1 -. "design concern" .-> c0

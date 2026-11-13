@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Application secret rotation"]
+    n0["Rotation scheduler"]
+    n1["Secret manager"]
+    n2["Versioned secret store"]
+    n3["Deployment notifier"]
+    n4["Application reload"]
+    n5["Application"]
+    n6["Audit log"]
+    n0 --> n1
+    n1 --> n2
+    n1 --> n3
+    n3 --> n4
+    n5 --> n1
+    n0 --> n6
+  end
+  subgraph deployment["AWS environment"]
+    d0["AWS ingress boundary"]
+    d1["Private application network"]
+    d2["Application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Auditability"]
+    c0["Audit event intake"]
+    c1["Append-only event log"]
+    c2["Retention archive"]
+    c3["Review interface"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

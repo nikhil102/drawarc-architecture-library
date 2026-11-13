@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Appointment scheduling"]
+    n0["Patient"]
+    n1["Booking portal"]
+    n2["Scheduling API"]
+    n3["Availability store"]
+    n4["Booking ledger"]
+    n5["Reminder queue"]
+    n6["Notification provider"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n4 --> n5
+    n5 --> n6
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Auditability"]
+    c0["Audit event intake"]
+    c1["Append-only event log"]
+    c2["Retention archive"]
+    c3["Review interface"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

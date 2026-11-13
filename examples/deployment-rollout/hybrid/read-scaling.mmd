@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Progressive deployment rollout"]
+    n0["Release pipeline"]
+    n1["Deployment controller"]
+    n2["Canary service"]
+    n3["Health evaluator"]
+    n4["Traffic router"]
+    n5["Stable service"]
+    n6["Rollback controller"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["Hybrid environment"]
+    d0["Cloud entry boundary"]
+    d1["Private connectivity"]
+    d2["Datacenter application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Read scaling"]
+    c0["Read cache"]
+    c1["Read model"]
+    c2["Projection updates"]
+    c0 --> c1
+    c2 --> c1
+  end
+  n1 -. "design concern" .-> c0

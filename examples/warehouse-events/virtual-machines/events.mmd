@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Warehouse scanning events"]
+    n0["Scanner"]
+    n1["Scan gateway"]
+    n2["Validation worker"]
+    n3["Movement ledger"]
+    n4["Exception queue"]
+    n5["Inventory projection"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n3 --> n5
+  end
+  subgraph deployment["Virtual machines"]
+    d0["Load balancer"]
+    d1["Private subnet"]
+    d2["Application virtual machines"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Event-driven integration"]
+    c0["Transactional outbox"]
+    c1["Event broker"]
+    c2["Downstream consumer"]
+    c3["Consumer dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

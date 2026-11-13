@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Security event aggregation"]
+    n0["Security sources"]
+    n1["Collection gateway"]
+    n2["Event stream"]
+    n3["Normalizer"]
+    n4["Security store"]
+    n5["Detection rules"]
+    n6["Investigation queue"]
+    n7["Analyst console"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Event-driven integration"]
+    c0["Transactional outbox"]
+    c1["Event broker"]
+    c2["Downstream consumer"]
+    c3["Consumer dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

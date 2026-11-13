@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Machine learning training pipeline"]
+    n0["Dataset snapshot"]
+    n1["Feature preparation"]
+    n2["Training jobs"]
+    n3["Model candidates"]
+    n4["Evaluation gate"]
+    n5["Model registry"]
+    n6["Experiment results"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n4 --> n6
+  end
+  subgraph deployment["Google Cloud environment"]
+    d0["Google Cloud entry boundary"]
+    d1["Private service network"]
+    d2["Application compute"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

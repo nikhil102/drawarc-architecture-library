@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Document approval workflow"]
+    n0["Requester"]
+    n1["Submission API"]
+    n2["Document versions"]
+    n3["Approval engine"]
+    n4["Reviewer inbox"]
+    n5["Decision ledger"]
+    n6["Status API"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["AWS environment"]
+    d0["AWS ingress boundary"]
+    d1["Private application network"]
+    d2["Application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Read scaling"]
+    c0["Read cache"]
+    c1["Read model"]
+    c2["Projection updates"]
+    c0 --> c1
+    c2 --> c1
+  end
+  n1 -. "design concern" .-> c0

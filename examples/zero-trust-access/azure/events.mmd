@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Private application access"]
+    n0["User"]
+    n1["Access proxy"]
+    n2["Identity provider"]
+    n3["Device posture service"]
+    n4["Policy evaluator"]
+    n5["Private application"]
+    n6["Access audit"]
+    n0 --> n1
+    n1 --> n2
+    n1 --> n3
+    n1 --> n4
+    n4 --> n5
+    n4 --> n6
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Event-driven integration"]
+    c0["Transactional outbox"]
+    c1["Event broker"]
+    c2["Downstream consumer"]
+    c3["Consumer dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

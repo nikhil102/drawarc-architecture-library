@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Document embedding ingestion"]
+    n0["Document source"]
+    n1["Ingestion queue"]
+    n2["Parser"]
+    n3["Chunk store"]
+    n4["Embedding worker"]
+    n5["Vector index"]
+    n6["Parsing failures"]
+    n7["Document versions"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n2 --> n6
+    n7 --> n1
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Multi-tenant isolation"]
+    c0["Tenant context resolver"]
+    c1["Tenant quota policy"]
+    c2["Tenant-scoped data access"]
+    c3["Isolation audit"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

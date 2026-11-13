@@ -1,0 +1,32 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["API rate limiting"]
+    n0["Client"]
+    n1["Edge gateway"]
+    n2["Quota evaluator"]
+    n3["Application"]
+    n4["Quota state"]
+    n5["Rejected request metrics"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n2 --> n5
+  end
+  subgraph deployment["Virtual machines"]
+    d0["Load balancer"]
+    d1["Private subnet"]
+    d2["Application virtual machines"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Availability"]
+    c0["Health checks"]
+    c1["Traffic policy"]
+    c2["Secondary application instance"]
+    c0 --> c1
+    c1 --> c2
+  end
+  n1 -. "design concern" .-> c0

@@ -1,0 +1,2340 @@
+[
+  {
+    "slug": "storefront",
+    "title": "Online storefront checkout",
+    "category": "Commerce",
+    "problem": "Keep browse, checkout, payment and order updates separate.",
+    "flows": [
+      [
+        "Shopper",
+        "Storefront",
+        "Catalog service",
+        "Product database"
+      ],
+      [
+        "Storefront",
+        "Checkout",
+        "Payment gateway"
+      ],
+      [
+        "Checkout",
+        "Order service",
+        "Order database"
+      ],
+      [
+        "Order service",
+        "Notification service"
+      ]
+    ]
+  },
+  {
+    "slug": "inventory",
+    "title": "Inventory reservation",
+    "category": "Commerce",
+    "problem": "Prevent two checkouts from reserving the same remaining stock.",
+    "flows": [
+      [
+        "Checkout",
+        "Reservation API",
+        "Stock ledger"
+      ],
+      [
+        "Reservation API",
+        "Reservation expiry queue",
+        "Release worker",
+        "Stock ledger"
+      ]
+    ]
+  },
+  {
+    "slug": "returns",
+    "title": "Product returns workflow",
+    "category": "Commerce",
+    "problem": "Track a return request through authorization, inspection and refund review.",
+    "flows": [
+      [
+        "Customer",
+        "Returns portal",
+        "Returns service",
+        "Returns database"
+      ],
+      [
+        "Returns service",
+        "Warehouse inspection",
+        "Refund service",
+        "Payment provider"
+      ]
+    ]
+  },
+  {
+    "slug": "marketplace",
+    "title": "Multi-seller marketplace",
+    "category": "Commerce",
+    "problem": "Separate seller catalog changes from buyer orders and payout reconciliation.",
+    "flows": [
+      [
+        "Buyer",
+        "Marketplace API",
+        "Order service",
+        "Orders database"
+      ],
+      [
+        "Seller",
+        "Seller portal",
+        "Catalog service",
+        "Catalog database"
+      ],
+      [
+        "Order service",
+        "Payout ledger",
+        "Reconciliation worker"
+      ]
+    ]
+  },
+  {
+    "slug": "subscriptions",
+    "title": "Subscription entitlements",
+    "category": "Commerce",
+    "problem": "Keep billing events and application access aligned without trusting browser redirects.",
+    "flows": [
+      [
+        "Billing provider",
+        "Webhook receiver",
+        "Event deduplication",
+        "Subscription ledger"
+      ],
+      [
+        "Application",
+        "Entitlement API",
+        "Subscription ledger"
+      ]
+    ]
+  },
+  {
+    "slug": "fulfilment",
+    "title": "Warehouse fulfilment",
+    "category": "Commerce",
+    "problem": "Coordinate picking, packing and shipment status across operational systems.",
+    "flows": [
+      [
+        "Order service",
+        "Fulfilment queue",
+        "Pick planner",
+        "Warehouse terminal"
+      ],
+      [
+        "Warehouse terminal",
+        "Pack station",
+        "Carrier adapter",
+        "Tracking store"
+      ]
+    ]
+  },
+  {
+    "slug": "pricing",
+    "title": "Price and promotion evaluation",
+    "category": "Commerce",
+    "problem": "Explain how base prices, promotions and eligibility become a checkout quote.",
+    "flows": [
+      [
+        "Cart",
+        "Quote API",
+        "Pricing engine",
+        "Price catalog"
+      ],
+      [
+        "Pricing engine",
+        "Promotion rules"
+      ],
+      [
+        "Pricing engine",
+        "Eligibility service"
+      ],
+      [
+        "Quote API",
+        "Quote snapshot"
+      ]
+    ]
+  },
+  {
+    "slug": "recommendations",
+    "title": "Product recommendations",
+    "category": "Commerce",
+    "problem": "Keep recommendation serving independent of slower model and catalog updates.",
+    "flows": [
+      [
+        "Storefront",
+        "Recommendation API",
+        "Feature cache"
+      ],
+      [
+        "Interaction events",
+        "Feature pipeline",
+        "Feature store",
+        "Model training",
+        "Model registry"
+      ],
+      [
+        "Model registry",
+        "Recommendation API"
+      ]
+    ]
+  },
+  {
+    "slug": "loyalty",
+    "title": "Loyalty points ledger",
+    "category": "Commerce",
+    "problem": "Make earning and spending points traceable and resistant to duplicate events.",
+    "flows": [
+      [
+        "Order events",
+        "Loyalty consumer",
+        "Deduplication store",
+        "Points ledger"
+      ],
+      [
+        "Customer",
+        "Balance API",
+        "Points ledger"
+      ],
+      [
+        "Points ledger",
+        "Expiry scheduler"
+      ]
+    ]
+  },
+  {
+    "slug": "abandoned-cart",
+    "title": "Abandoned cart recovery",
+    "category": "Commerce",
+    "problem": "Schedule recovery messages without contacting customers after an order is completed.",
+    "flows": [
+      [
+        "Cart events",
+        "Cart state store",
+        "Recovery scheduler",
+        "Consent check",
+        "Message queue",
+        "Notification provider"
+      ],
+      [
+        "Order events",
+        "Cart state store"
+      ]
+    ]
+  },
+  {
+    "slug": "payment-reconciliation",
+    "title": "Payment reconciliation",
+    "category": "Finance",
+    "problem": "Compare provider settlements against internal transactions and surface unmatched records.",
+    "flows": [
+      [
+        "Payment provider",
+        "Settlement importer",
+        "Raw settlement store",
+        "Matching worker",
+        "Reconciliation ledger"
+      ],
+      [
+        "Internal transactions",
+        "Matching worker"
+      ],
+      [
+        "Matching worker",
+        "Exception queue",
+        "Operations review"
+      ]
+    ]
+  },
+  {
+    "slug": "expense-approval",
+    "title": "Expense approval",
+    "category": "Finance",
+    "problem": "Route expense claims through policy checks and human approval before reimbursement.",
+    "flows": [
+      [
+        "Employee",
+        "Expense portal",
+        "Receipt store"
+      ],
+      [
+        "Expense portal",
+        "Policy engine",
+        "Approval queue",
+        "Approver"
+      ],
+      [
+        "Approver",
+        "Reimbursement service",
+        "Payment provider"
+      ]
+    ]
+  },
+  {
+    "slug": "invoice-processing",
+    "title": "Invoice processing",
+    "category": "Finance",
+    "problem": "Extract invoice data and preserve human review for uncertain matches.",
+    "flows": [
+      [
+        "Supplier",
+        "Upload API",
+        "Document store",
+        "Extraction worker",
+        "Invoice database"
+      ],
+      [
+        "Invoice database",
+        "Purchase order matching",
+        "Review queue",
+        "Accounts payable"
+      ]
+    ]
+  },
+  {
+    "slug": "fraud-review",
+    "title": "Transaction risk review",
+    "category": "Finance",
+    "problem": "Separate risk signals and review decisions from transaction execution.",
+    "flows": [
+      [
+        "Transaction API",
+        "Risk signal collector",
+        "Risk rules",
+        "Decision log"
+      ],
+      [
+        "Risk rules",
+        "Review queue",
+        "Analyst console"
+      ],
+      [
+        "Transaction API",
+        "Payment execution"
+      ]
+    ]
+  },
+  {
+    "slug": "bank-feed",
+    "title": "Bank feed ingestion",
+    "category": "Finance",
+    "problem": "Normalize financial feeds while retaining source records for reconciliation.",
+    "flows": [
+      [
+        "Bank connector",
+        "Ingestion queue",
+        "Normalizer",
+        "Transaction store"
+      ],
+      [
+        "Normalizer",
+        "Validation errors",
+        "Operations console"
+      ],
+      [
+        "Transaction store",
+        "Reconciliation worker"
+      ]
+    ]
+  },
+  {
+    "slug": "budget-alerts",
+    "title": "Budget threshold alerts",
+    "category": "Finance",
+    "problem": "Calculate budget usage and send deduplicated threshold notifications.",
+    "flows": [
+      [
+        "Spending events",
+        "Budget aggregator",
+        "Budget state"
+      ],
+      [
+        "Budget state",
+        "Threshold evaluator",
+        "Notification deduplication",
+        "Alert provider"
+      ],
+      [
+        "Budget configuration",
+        "Threshold evaluator"
+      ]
+    ]
+  },
+  {
+    "slug": "quote-approval",
+    "title": "Commercial quote approval",
+    "category": "Finance",
+    "problem": "Preserve quote versions and approvals before a contract is issued.",
+    "flows": [
+      [
+        "Sales portal",
+        "Quote service",
+        "Quote versions"
+      ],
+      [
+        "Quote service",
+        "Approval policy",
+        "Approver inbox"
+      ],
+      [
+        "Approver inbox",
+        "Approved quote",
+        "Contract generator"
+      ]
+    ]
+  },
+  {
+    "slug": "refund-ledger",
+    "title": "Refund request ledger",
+    "category": "Finance",
+    "problem": "Trace refund requests, provider responses and outstanding reconciliation items.",
+    "flows": [
+      [
+        "Support console",
+        "Refund API",
+        "Refund ledger"
+      ],
+      [
+        "Refund API",
+        "Provider adapter",
+        "Payment provider"
+      ],
+      [
+        "Payment provider",
+        "Webhook receiver",
+        "Refund ledger"
+      ],
+      [
+        "Refund ledger",
+        "Reconciliation report"
+      ]
+    ]
+  },
+  {
+    "slug": "billing-metering",
+    "title": "Usage based billing metering",
+    "category": "Finance",
+    "problem": "Aggregate idempotent usage events into a reproducible billing period.",
+    "flows": [
+      [
+        "Application events",
+        "Metering ingestion",
+        "Event deduplication",
+        "Usage store"
+      ],
+      [
+        "Usage store",
+        "Period aggregator",
+        "Invoice line items"
+      ],
+      [
+        "Invoice line items",
+        "Billing provider"
+      ]
+    ]
+  },
+  {
+    "slug": "purchase-orders",
+    "title": "Purchase order lifecycle",
+    "category": "Finance",
+    "problem": "Track procurement requests and receipt confirmation before payment review.",
+    "flows": [
+      [
+        "Requester",
+        "Procurement portal",
+        "Approval engine",
+        "Purchase order store"
+      ],
+      [
+        "Purchase order store",
+        "Supplier adapter"
+      ],
+      [
+        "Warehouse",
+        "Receipt service",
+        "Purchase order store"
+      ],
+      [
+        "Purchase order store",
+        "Invoice matching"
+      ]
+    ]
+  },
+  {
+    "slug": "appointment-booking",
+    "title": "Appointment scheduling",
+    "category": "Healthcare",
+    "problem": "Coordinate appointment availability, booking and reminders without exposing clinical records.",
+    "flows": [
+      [
+        "Patient",
+        "Booking portal",
+        "Scheduling API",
+        "Availability store"
+      ],
+      [
+        "Scheduling API",
+        "Booking ledger",
+        "Reminder queue",
+        "Notification provider"
+      ]
+    ]
+  },
+  {
+    "slug": "lab-results",
+    "title": "Laboratory result delivery",
+    "category": "Healthcare",
+    "problem": "Track result ingestion and authorized delivery with an audit trail.",
+    "flows": [
+      [
+        "Laboratory system",
+        "Result ingestion",
+        "Validation queue",
+        "Result store"
+      ],
+      [
+        "Clinician portal",
+        "Access policy",
+        "Result API",
+        "Result store"
+      ],
+      [
+        "Result API",
+        "Audit log"
+      ]
+    ]
+  },
+  {
+    "slug": "care-referral",
+    "title": "Care referral coordination",
+    "category": "Healthcare",
+    "problem": "Keep referral status and supporting documents aligned across authorized participants.",
+    "flows": [
+      [
+        "Referring office",
+        "Referral API",
+        "Referral store"
+      ],
+      [
+        "Referral API",
+        "Document store"
+      ],
+      [
+        "Receiving office",
+        "Referral inbox",
+        "Referral API"
+      ],
+      [
+        "Referral API",
+        "Status notifications"
+      ]
+    ]
+  },
+  {
+    "slug": "patient-messaging",
+    "title": "Secure patient messaging",
+    "category": "Healthcare",
+    "problem": "Separate message access, attachments and notification delivery.",
+    "flows": [
+      [
+        "Patient portal",
+        "Message API",
+        "Authorization check",
+        "Message store"
+      ],
+      [
+        "Message API",
+        "Attachment store"
+      ],
+      [
+        "Message API",
+        "Notification queue",
+        "Notification provider"
+      ]
+    ]
+  },
+  {
+    "slug": "medical-device-events",
+    "title": "Medical device event intake",
+    "category": "Healthcare",
+    "problem": "Route device telemetry to an operations review workflow rather than automated clinical decisions.",
+    "flows": [
+      [
+        "Device gateway",
+        "Event broker",
+        "Validation worker",
+        "Telemetry store"
+      ],
+      [
+        "Validation worker",
+        "Invalid event queue"
+      ],
+      [
+        "Telemetry store",
+        "Operations dashboard"
+      ]
+    ]
+  },
+  {
+    "slug": "consent-records",
+    "title": "Consent record management",
+    "category": "Healthcare",
+    "problem": "Version consent records and keep downstream access checks tied to the current record.",
+    "flows": [
+      [
+        "Portal",
+        "Consent API",
+        "Consent versions"
+      ],
+      [
+        "Application",
+        "Consent policy service",
+        "Consent versions"
+      ],
+      [
+        "Consent API",
+        "Audit stream",
+        "Audit archive"
+      ]
+    ]
+  },
+  {
+    "slug": "document-exchange",
+    "title": "Clinical document exchange",
+    "category": "Healthcare",
+    "problem": "Validate incoming documents and restrict access to their authorized recipients.",
+    "flows": [
+      [
+        "Partner gateway",
+        "Document receiver",
+        "Format validator",
+        "Document store"
+      ],
+      [
+        "Format validator",
+        "Rejected documents"
+      ],
+      [
+        "Authorized portal",
+        "Access policy",
+        "Document API",
+        "Document store"
+      ]
+    ]
+  },
+  {
+    "slug": "provider-directory",
+    "title": "Provider directory synchronization",
+    "category": "Healthcare",
+    "problem": "Merge provider directory changes without silently overwriting source provenance.",
+    "flows": [
+      [
+        "Source directories",
+        "Import jobs",
+        "Normalizer",
+        "Candidate records"
+      ],
+      [
+        "Candidate records",
+        "Review console",
+        "Published directory"
+      ],
+      [
+        "Published directory",
+        "Directory API"
+      ]
+    ]
+  },
+  {
+    "slug": "claims-status",
+    "title": "Claim status tracking",
+    "category": "Healthcare",
+    "problem": "Present claim processing status while preserving source event history.",
+    "flows": [
+      [
+        "Payer adapter",
+        "Status ingestion",
+        "Status event store",
+        "Claim projection"
+      ],
+      [
+        "Member portal",
+        "Status API",
+        "Claim projection"
+      ],
+      [
+        "Status ingestion",
+        "Exception queue"
+      ]
+    ]
+  },
+  {
+    "slug": "staff-access",
+    "title": "Staff access provisioning",
+    "category": "Healthcare",
+    "problem": "Make staff role changes explicit and auditable across application access.",
+    "flows": [
+      [
+        "HR events",
+        "Provisioning queue",
+        "Role mapper",
+        "Identity provider"
+      ],
+      [
+        "Role mapper",
+        "Access registry"
+      ],
+      [
+        "Identity provider",
+        "Application access"
+      ],
+      [
+        "Role mapper",
+        "Audit log"
+      ]
+    ]
+  },
+  {
+    "slug": "video-upload",
+    "title": "Video upload and processing",
+    "category": "Media",
+    "problem": "Handle large uploads and asynchronous media processing separately from requests.",
+    "flows": [
+      [
+        "Creator",
+        "Upload API",
+        "Object store",
+        "Processing queue",
+        "Transcode workers",
+        "Published assets"
+      ],
+      [
+        "Transcode workers",
+        "Processing status store"
+      ]
+    ]
+  },
+  {
+    "slug": "live-stream",
+    "title": "Live streaming distribution",
+    "category": "Media",
+    "problem": "Separate live ingest, packaging and audience delivery paths.",
+    "flows": [
+      [
+        "Broadcaster",
+        "Ingest gateway",
+        "Stream processor",
+        "Packager",
+        "Origin storage",
+        "CDN",
+        "Viewer"
+      ],
+      [
+        "Stream processor",
+        "Monitoring collector"
+      ]
+    ]
+  },
+  {
+    "slug": "content-moderation",
+    "title": "Content moderation review",
+    "category": "Media",
+    "problem": "Combine automated flags and human review while preserving decision history.",
+    "flows": [
+      [
+        "Upload events",
+        "Moderation queue",
+        "Screening worker",
+        "Review queue",
+        "Reviewer console"
+      ],
+      [
+        "Reviewer console",
+        "Decision store",
+        "Publication service"
+      ]
+    ]
+  },
+  {
+    "slug": "podcast-publishing",
+    "title": "Podcast publishing pipeline",
+    "category": "Media",
+    "problem": "Track audio assets, metadata and distribution feed updates.",
+    "flows": [
+      [
+        "Producer",
+        "Publishing API",
+        "Metadata store"
+      ],
+      [
+        "Publishing API",
+        "Audio store",
+        "Audio processing"
+      ],
+      [
+        "Audio processing",
+        "Release scheduler",
+        "Feed generator",
+        "Distribution endpoints"
+      ]
+    ]
+  },
+  {
+    "slug": "image-transform",
+    "title": "Image transformation service",
+    "category": "Media",
+    "problem": "Cache derived images without repeatedly running expensive transformations.",
+    "flows": [
+      [
+        "Browser",
+        "Image CDN",
+        "Transform API",
+        "Source image store"
+      ],
+      [
+        "Transform API",
+        "Image worker",
+        "Derived image store"
+      ],
+      [
+        "Derived image store",
+        "Image CDN"
+      ]
+    ]
+  },
+  {
+    "slug": "digital-rights",
+    "title": "Digital asset access control",
+    "category": "Media",
+    "problem": "Check entitlement before granting short lived asset access.",
+    "flows": [
+      [
+        "Viewer",
+        "Asset API",
+        "Entitlement service",
+        "Subscription store"
+      ],
+      [
+        "Asset API",
+        "Signed access issuer",
+        "Asset CDN"
+      ],
+      [
+        "Asset API",
+        "Access audit"
+      ]
+    ]
+  },
+  {
+    "slug": "search-indexing",
+    "title": "Content search indexing",
+    "category": "Media",
+    "problem": "Update a search index from content changes without blocking publication.",
+    "flows": [
+      [
+        "Content editor",
+        "Content API",
+        "Content database"
+      ],
+      [
+        "Content database",
+        "Change stream",
+        "Indexing worker",
+        "Search index"
+      ],
+      [
+        "Reader",
+        "Search API",
+        "Search index"
+      ]
+    ]
+  },
+  {
+    "slug": "newsroom",
+    "title": "Editorial publishing workflow",
+    "category": "Media",
+    "problem": "Version drafts and approvals before scheduled publication.",
+    "flows": [
+      [
+        "Author",
+        "Draft service",
+        "Draft versions"
+      ],
+      [
+        "Draft service",
+        "Editorial review",
+        "Approval record",
+        "Publishing scheduler"
+      ],
+      [
+        "Publishing scheduler",
+        "Published store",
+        "CDN"
+      ]
+    ]
+  },
+  {
+    "slug": "notification-digest",
+    "title": "Notification digest delivery",
+    "category": "Media",
+    "problem": "Group notifications by recipient preferences and prevent duplicate sends.",
+    "flows": [
+      [
+        "Events",
+        "Notification intake",
+        "Preference service",
+        "Digest store"
+      ],
+      [
+        "Digest store",
+        "Digest scheduler",
+        "Send queue",
+        "Email provider"
+      ],
+      [
+        "Send queue",
+        "Delivery receipts"
+      ]
+    ]
+  },
+  {
+    "slug": "analytics-attribution",
+    "title": "Content engagement analytics",
+    "category": "Media",
+    "problem": "Keep raw events, session processing and reporting boundaries visible.",
+    "flows": [
+      [
+        "Client events",
+        "Collection gateway",
+        "Event stream",
+        "Session processor",
+        "Analytics warehouse"
+      ],
+      [
+        "Session processor",
+        "Invalid events"
+      ],
+      [
+        "Analytics warehouse",
+        "Reporting API"
+      ]
+    ]
+  },
+  {
+    "slug": "ci-pipeline",
+    "title": "Continuous integration pipeline",
+    "category": "Developer tools",
+    "problem": "Keep untrusted source changes isolated from artifact publishing credentials.",
+    "flows": [
+      [
+        "Git repository",
+        "CI scheduler",
+        "Isolated runner",
+        "Test results"
+      ],
+      [
+        "Isolated runner",
+        "Build artifacts",
+        "Artifact registry"
+      ],
+      [
+        "Test results",
+        "Pull request checks"
+      ]
+    ]
+  },
+  {
+    "slug": "deployment-rollout",
+    "title": "Progressive deployment rollout",
+    "category": "Developer tools",
+    "problem": "Gate traffic promotion on health checks and retain a rollback path.",
+    "flows": [
+      [
+        "Release pipeline",
+        "Deployment controller",
+        "Canary service",
+        "Health evaluator"
+      ],
+      [
+        "Health evaluator",
+        "Traffic router",
+        "Stable service"
+      ],
+      [
+        "Health evaluator",
+        "Rollback controller"
+      ]
+    ]
+  },
+  {
+    "slug": "package-registry",
+    "title": "Package registry service",
+    "category": "Developer tools",
+    "problem": "Serve immutable package versions and separate publishing from download traffic.",
+    "flows": [
+      [
+        "Publisher",
+        "Publish API",
+        "Validation worker",
+        "Package metadata"
+      ],
+      [
+        "Validation worker",
+        "Artifact store"
+      ],
+      [
+        "Developer",
+        "Registry API",
+        "Package metadata"
+      ],
+      [
+        "Registry API",
+        "Artifact CDN"
+      ]
+    ]
+  },
+  {
+    "slug": "feature-flags",
+    "title": "Feature flag evaluation",
+    "category": "Developer tools",
+    "problem": "Separate flag management, distribution and application evaluation.",
+    "flows": [
+      [
+        "Operator",
+        "Flag management API",
+        "Flag store"
+      ],
+      [
+        "Flag store",
+        "Distribution stream",
+        "SDK cache"
+      ],
+      [
+        "Application",
+        "SDK cache"
+      ],
+      [
+        "Application",
+        "Exposure events",
+        "Analytics collector"
+      ]
+    ]
+  },
+  {
+    "slug": "developer-portal",
+    "title": "Internal developer portal",
+    "category": "Developer tools",
+    "problem": "Present service ownership and documentation from traceable source systems.",
+    "flows": [
+      [
+        "Source systems",
+        "Catalog collectors",
+        "Service catalog"
+      ],
+      [
+        "Developer",
+        "Portal API",
+        "Service catalog"
+      ],
+      [
+        "Portal API",
+        "Documentation index"
+      ],
+      [
+        "Portal API",
+        "Ownership directory"
+      ]
+    ]
+  },
+  {
+    "slug": "incident-response",
+    "title": "Incident response coordination",
+    "category": "Developer tools",
+    "problem": "Route alerts to responders while preserving incident state and actions.",
+    "flows": [
+      [
+        "Monitoring",
+        "Alert intake",
+        "Deduplication",
+        "On call router",
+        "Responder"
+      ],
+      [
+        "Responder",
+        "Incident service",
+        "Incident timeline"
+      ],
+      [
+        "Incident service",
+        "Status page"
+      ]
+    ]
+  },
+  {
+    "slug": "secrets-rotation",
+    "title": "Application secret rotation",
+    "category": "Developer tools",
+    "problem": "Coordinate secret replacement and application reload without embedding secrets in source.",
+    "flows": [
+      [
+        "Rotation scheduler",
+        "Secret manager",
+        "Versioned secret store"
+      ],
+      [
+        "Secret manager",
+        "Deployment notifier",
+        "Application reload"
+      ],
+      [
+        "Application",
+        "Secret manager"
+      ],
+      [
+        "Rotation scheduler",
+        "Audit log"
+      ]
+    ]
+  },
+  {
+    "slug": "build-cache",
+    "title": "Distributed build cache",
+    "category": "Developer tools",
+    "problem": "Share validated build outputs while keeping cache keys and trust boundaries explicit.",
+    "flows": [
+      [
+        "Build runner",
+        "Cache API",
+        "Cache key index"
+      ],
+      [
+        "Cache API",
+        "Artifact store"
+      ],
+      [
+        "Build runner",
+        "Build worker",
+        "Artifact validator",
+        "Cache API"
+      ]
+    ]
+  },
+  {
+    "slug": "preview-environments",
+    "title": "Pull request preview environments",
+    "category": "Developer tools",
+    "problem": "Create isolated preview resources and reclaim them after a change closes.",
+    "flows": [
+      [
+        "Pull request events",
+        "Preview controller",
+        "Resource provisioner",
+        "Preview namespace"
+      ],
+      [
+        "Preview controller",
+        "Environment registry"
+      ],
+      [
+        "Close events",
+        "Cleanup worker",
+        "Environment registry"
+      ]
+    ]
+  },
+  {
+    "slug": "webhook-delivery",
+    "title": "Reliable webhook delivery",
+    "category": "Developer tools",
+    "problem": "Retry outbound webhooks without blocking the originating transaction.",
+    "flows": [
+      [
+        "Application",
+        "Outbox",
+        "Dispatch worker",
+        "Delivery queue",
+        "Subscriber endpoint"
+      ],
+      [
+        "Delivery queue",
+        "Retry scheduler"
+      ],
+      [
+        "Retry scheduler",
+        "Dead letter queue"
+      ],
+      [
+        "Subscriber endpoint",
+        "Delivery receipts"
+      ]
+    ]
+  },
+  {
+    "slug": "api-authentication",
+    "title": "API authentication boundary",
+    "category": "Security",
+    "problem": "Separate identity proof, authorization policy and application data access.",
+    "flows": [
+      [
+        "Client",
+        "Identity provider",
+        "Token issuer"
+      ],
+      [
+        "Client",
+        "API gateway",
+        "Token validator",
+        "Policy engine",
+        "Application"
+      ],
+      [
+        "Policy engine",
+        "Policy store"
+      ],
+      [
+        "Application",
+        "Audit collector"
+      ]
+    ]
+  },
+  {
+    "slug": "zero-trust-access",
+    "title": "Private application access",
+    "category": "Security",
+    "problem": "Apply identity and device checks before granting application access.",
+    "flows": [
+      [
+        "User",
+        "Access proxy",
+        "Identity provider"
+      ],
+      [
+        "Access proxy",
+        "Device posture service"
+      ],
+      [
+        "Access proxy",
+        "Policy evaluator",
+        "Private application"
+      ],
+      [
+        "Policy evaluator",
+        "Access audit"
+      ]
+    ]
+  },
+  {
+    "slug": "security-events",
+    "title": "Security event aggregation",
+    "category": "Security",
+    "problem": "Normalize security events and retain a human investigation workflow.",
+    "flows": [
+      [
+        "Security sources",
+        "Collection gateway",
+        "Event stream",
+        "Normalizer",
+        "Security store"
+      ],
+      [
+        "Security store",
+        "Detection rules",
+        "Investigation queue",
+        "Analyst console"
+      ]
+    ]
+  },
+  {
+    "slug": "key-management",
+    "title": "Encryption key service boundary",
+    "category": "Security",
+    "problem": "Keep application data and key authorization separated in the diagram.",
+    "flows": [
+      [
+        "Application",
+        "Encryption adapter",
+        "Key service",
+        "Key policy"
+      ],
+      [
+        "Encryption adapter",
+        "Encrypted data store"
+      ],
+      [
+        "Key service",
+        "Key audit"
+      ]
+    ]
+  },
+  {
+    "slug": "audit-archive",
+    "title": "Tamper evident audit archive",
+    "category": "Security",
+    "problem": "Preserve audit event provenance and separate write access from review.",
+    "flows": [
+      [
+        "Applications",
+        "Audit intake",
+        "Append only log",
+        "Retention archive"
+      ],
+      [
+        "Auditor",
+        "Review API",
+        "Retention archive"
+      ],
+      [
+        "Audit intake",
+        "Schema validation"
+      ]
+    ]
+  },
+  {
+    "slug": "rate-limiting",
+    "title": "API rate limiting",
+    "category": "Security",
+    "problem": "Apply client quotas before expensive application work and monitor rejected traffic.",
+    "flows": [
+      [
+        "Client",
+        "Edge gateway",
+        "Quota evaluator",
+        "Application"
+      ],
+      [
+        "Quota evaluator",
+        "Quota state"
+      ],
+      [
+        "Quota evaluator",
+        "Rejected request metrics"
+      ]
+    ]
+  },
+  {
+    "slug": "tenant-isolation",
+    "title": "Tenant authorization boundary",
+    "category": "Security",
+    "problem": "Resolve tenant context explicitly before data access.",
+    "flows": [
+      [
+        "Client",
+        "Authentication",
+        "Tenant resolver",
+        "Authorization policy",
+        "Application API"
+      ],
+      [
+        "Application API",
+        "Tenant scoped repository",
+        "Data store"
+      ],
+      [
+        "Authorization policy",
+        "Audit log"
+      ]
+    ]
+  },
+  {
+    "slug": "vulnerability-intake",
+    "title": "Vulnerability report triage",
+    "category": "Security",
+    "problem": "Handle security reports privately and track assessment and remediation.",
+    "flows": [
+      [
+        "Reporter",
+        "Private report intake",
+        "Restricted report store"
+      ],
+      [
+        "Security analyst",
+        "Triage console",
+        "Restricted report store"
+      ],
+      [
+        "Triage console",
+        "Remediation tracker",
+        "Verification record"
+      ]
+    ]
+  },
+  {
+    "slug": "certificate-lifecycle",
+    "title": "Certificate lifecycle management",
+    "category": "Security",
+    "problem": "Track issuance, deployment and expiry checks separately.",
+    "flows": [
+      [
+        "Certificate inventory",
+        "Renewal scheduler",
+        "Certificate authority",
+        "Certificate store"
+      ],
+      [
+        "Certificate store",
+        "Deployment agent",
+        "Service endpoint"
+      ],
+      [
+        "Service endpoint",
+        "Expiry monitor"
+      ]
+    ]
+  },
+  {
+    "slug": "privileged-access",
+    "title": "Privileged operation approval",
+    "category": "Security",
+    "problem": "Require explicit approval and short lived access for administrative operations.",
+    "flows": [
+      [
+        "Operator",
+        "Access request",
+        "Approval queue",
+        "Approver"
+      ],
+      [
+        "Approver",
+        "Access broker",
+        "Administrative endpoint"
+      ],
+      [
+        "Access broker",
+        "Session audit"
+      ]
+    ]
+  },
+  {
+    "slug": "batch-etl",
+    "title": "Batch analytics pipeline",
+    "category": "Data",
+    "problem": "Keep source extraction, validation and reporting data separate.",
+    "flows": [
+      [
+        "Source databases",
+        "Extraction jobs",
+        "Raw object store",
+        "Validation jobs",
+        "Transformation jobs",
+        "Analytics warehouse"
+      ],
+      [
+        "Validation jobs",
+        "Rejected records"
+      ]
+    ]
+  },
+  {
+    "slug": "stream-processing",
+    "title": "Stream processing topology",
+    "category": "Data",
+    "problem": "Handle continuous events with visible replay and failure handling.",
+    "flows": [
+      [
+        "Producers",
+        "Event broker",
+        "Stream processor",
+        "Serving store"
+      ],
+      [
+        "Event broker",
+        "Replay archive"
+      ],
+      [
+        "Stream processor",
+        "Dead letter topic"
+      ],
+      [
+        "Serving store",
+        "Query API"
+      ]
+    ]
+  },
+  {
+    "slug": "cdc-replication",
+    "title": "Change data capture pipeline",
+    "category": "Data",
+    "problem": "Replicate database changes without treating the analytics copy as the transaction authority.",
+    "flows": [
+      [
+        "Application",
+        "Primary database",
+        "Change capture",
+        "Change topic",
+        "Projection worker",
+        "Read model"
+      ],
+      [
+        "Projection worker",
+        "Schema errors"
+      ]
+    ]
+  },
+  {
+    "slug": "data-quality",
+    "title": "Data quality validation",
+    "category": "Data",
+    "problem": "Route invalid datasets to review before making them available to consumers.",
+    "flows": [
+      [
+        "Dataset arrival",
+        "Validation scheduler",
+        "Quality checks",
+        "Validation results"
+      ],
+      [
+        "Quality checks",
+        "Accepted datasets",
+        "Data catalog"
+      ],
+      [
+        "Quality checks",
+        "Rejected datasets",
+        "Steward review"
+      ]
+    ]
+  },
+  {
+    "slug": "data-catalog",
+    "title": "Data discovery catalog",
+    "category": "Data",
+    "problem": "Index dataset ownership and metadata without copying every data record.",
+    "flows": [
+      [
+        "Source systems",
+        "Metadata crawlers",
+        "Metadata store"
+      ],
+      [
+        "Steward",
+        "Catalog editor",
+        "Metadata store"
+      ],
+      [
+        "Analyst",
+        "Search API",
+        "Metadata index"
+      ],
+      [
+        "Metadata store",
+        "Indexer",
+        "Metadata index"
+      ]
+    ]
+  },
+  {
+    "slug": "ml-training",
+    "title": "Machine learning training pipeline",
+    "category": "Data",
+    "problem": "Version training inputs and model evaluation before promotion.",
+    "flows": [
+      [
+        "Dataset snapshot",
+        "Feature preparation",
+        "Training jobs",
+        "Model candidates",
+        "Evaluation gate",
+        "Model registry"
+      ],
+      [
+        "Evaluation gate",
+        "Experiment results"
+      ]
+    ]
+  },
+  {
+    "slug": "model-serving",
+    "title": "Model inference service",
+    "category": "Data",
+    "problem": "Separate online prediction, feature reads and asynchronous monitoring.",
+    "flows": [
+      [
+        "Client",
+        "Inference API",
+        "Model runtime",
+        "Prediction response"
+      ],
+      [
+        "Model runtime",
+        "Feature store"
+      ],
+      [
+        "Model registry",
+        "Model runtime"
+      ],
+      [
+        "Prediction events",
+        "Monitoring pipeline"
+      ]
+    ]
+  },
+  {
+    "slug": "rag-assistant",
+    "title": "Retrieval augmented assistant",
+    "category": "Data",
+    "problem": "Expose retrieval and model context boundaries rather than hiding them inside one AI box.",
+    "flows": [
+      [
+        "User",
+        "Assistant API",
+        "Query preparation",
+        "Retriever",
+        "Vector store"
+      ],
+      [
+        "Retriever",
+        "Context builder",
+        "Language model",
+        "Response service"
+      ],
+      [
+        "Documents",
+        "Ingestion worker",
+        "Vector store"
+      ]
+    ]
+  },
+  {
+    "slug": "embedding-index",
+    "title": "Document embedding ingestion",
+    "category": "Data",
+    "problem": "Track document versions and index updates through an asynchronous workflow.",
+    "flows": [
+      [
+        "Document source",
+        "Ingestion queue",
+        "Parser",
+        "Chunk store",
+        "Embedding worker",
+        "Vector index"
+      ],
+      [
+        "Parser",
+        "Parsing failures"
+      ],
+      [
+        "Document versions",
+        "Ingestion queue"
+      ]
+    ]
+  },
+  {
+    "slug": "data-deletion",
+    "title": "Data deletion request workflow",
+    "category": "Data",
+    "problem": "Track deletion requests and dependent data stores with an explicit completion record.",
+    "flows": [
+      [
+        "Request portal",
+        "Ownership verification",
+        "Deletion coordinator",
+        "Work queue",
+        "Store adapters"
+      ],
+      [
+        "Store adapters",
+        "Completion ledger"
+      ],
+      [
+        "Deletion coordinator",
+        "Retention review"
+      ]
+    ]
+  },
+  {
+    "slug": "telemetry-ingestion",
+    "title": "Device telemetry ingestion",
+    "category": "IoT",
+    "problem": "Validate device events and separate raw telemetry from application projections.",
+    "flows": [
+      [
+        "Device",
+        "Device gateway",
+        "Authentication",
+        "Telemetry broker",
+        "Validation worker",
+        "Telemetry store"
+      ],
+      [
+        "Validation worker",
+        "Device state projection"
+      ]
+    ]
+  },
+  {
+    "slug": "device-provisioning",
+    "title": "Device provisioning",
+    "category": "IoT",
+    "problem": "Track device registration and credential issuance without embedding credentials in the diagram.",
+    "flows": [
+      [
+        "Factory",
+        "Registration API",
+        "Device registry"
+      ],
+      [
+        "Registration API",
+        "Credential issuer",
+        "Device bootstrap"
+      ],
+      [
+        "Device bootstrap",
+        "Connection gateway",
+        "Device registry"
+      ]
+    ]
+  },
+  {
+    "slug": "firmware-rollout",
+    "title": "Firmware rollout control",
+    "category": "IoT",
+    "problem": "Stage firmware delivery and track rollout health before wider promotion.",
+    "flows": [
+      [
+        "Release manager",
+        "Firmware registry",
+        "Rollout controller",
+        "Device groups"
+      ],
+      [
+        "Device groups",
+        "Delivery gateway",
+        "Device"
+      ],
+      [
+        "Device",
+        "Status ingestion",
+        "Rollout health"
+      ]
+    ]
+  },
+  {
+    "slug": "fleet-location",
+    "title": "Fleet location tracking",
+    "category": "IoT",
+    "problem": "Process location events with clear access and retention boundaries.",
+    "flows": [
+      [
+        "Vehicle",
+        "Location gateway",
+        "Event stream",
+        "Position processor",
+        "Current location store"
+      ],
+      [
+        "Position processor",
+        "History archive"
+      ],
+      [
+        "Operator",
+        "Fleet API",
+        "Current location store"
+      ]
+    ]
+  },
+  {
+    "slug": "industrial-alerts",
+    "title": "Industrial equipment alerts",
+    "category": "IoT",
+    "problem": "Keep sensor event processing and human response visible.",
+    "flows": [
+      [
+        "Sensors",
+        "Edge collector",
+        "Message broker",
+        "Threshold evaluation",
+        "Alert queue",
+        "Operator console"
+      ],
+      [
+        "Threshold evaluation",
+        "Time series store"
+      ]
+    ]
+  },
+  {
+    "slug": "edge-sync",
+    "title": "Intermittent edge synchronization",
+    "category": "IoT",
+    "problem": "Buffer events locally and reconcile acknowledgements after connectivity returns.",
+    "flows": [
+      [
+        "Edge application",
+        "Local event journal",
+        "Sync agent",
+        "Cloud intake",
+        "Acknowledgement store"
+      ],
+      [
+        "Acknowledgement store",
+        "Sync agent"
+      ],
+      [
+        "Cloud intake",
+        "Event processor"
+      ]
+    ]
+  },
+  {
+    "slug": "smart-metering",
+    "title": "Meter reading collection",
+    "category": "IoT",
+    "problem": "Deduplicate readings and preserve raw events for later reconciliation.",
+    "flows": [
+      [
+        "Meter",
+        "Gateway",
+        "Reading intake",
+        "Deduplication",
+        "Reading store"
+      ],
+      [
+        "Reading store",
+        "Aggregation jobs",
+        "Usage report"
+      ],
+      [
+        "Reading intake",
+        "Rejected readings"
+      ]
+    ]
+  },
+  {
+    "slug": "command-dispatch",
+    "title": "Device command dispatch",
+    "category": "IoT",
+    "problem": "Track requested, delivered and acknowledged commands independently.",
+    "flows": [
+      [
+        "Operator",
+        "Command API",
+        "Command ledger",
+        "Dispatch queue",
+        "Device gateway",
+        "Device"
+      ],
+      [
+        "Device",
+        "Acknowledgement intake",
+        "Command ledger"
+      ]
+    ]
+  },
+  {
+    "slug": "asset-monitoring",
+    "title": "Asset maintenance signals",
+    "category": "IoT",
+    "problem": "Combine asset state and telemetry to support maintenance planning.",
+    "flows": [
+      [
+        "Asset telemetry",
+        "State processor",
+        "Asset state store"
+      ],
+      [
+        "Maintenance planner",
+        "Planning API",
+        "Asset state store"
+      ],
+      [
+        "State processor",
+        "Maintenance candidate queue"
+      ]
+    ]
+  },
+  {
+    "slug": "offline-mobile",
+    "title": "Offline mobile synchronization",
+    "category": "IoT",
+    "problem": "Reconcile local edits and server versions without silently overwriting changes.",
+    "flows": [
+      [
+        "Mobile client",
+        "Local change log",
+        "Sync endpoint",
+        "Conflict detector",
+        "Server store"
+      ],
+      [
+        "Conflict detector",
+        "Conflict inbox"
+      ],
+      [
+        "Server store",
+        "Change feed",
+        "Mobile client"
+      ]
+    ]
+  },
+  {
+    "slug": "team-chat",
+    "title": "Team messaging system",
+    "category": "Collaboration",
+    "problem": "Separate message persistence, delivery and presence updates.",
+    "flows": [
+      [
+        "User",
+        "Chat gateway",
+        "Message service",
+        "Message store"
+      ],
+      [
+        "Message service",
+        "Delivery broker",
+        "Connected clients"
+      ],
+      [
+        "Chat gateway",
+        "Presence store"
+      ]
+    ]
+  },
+  {
+    "slug": "collaborative-editor",
+    "title": "Collaborative document editing",
+    "category": "Collaboration",
+    "problem": "Keep local edits, server revisions and overlapping edit recovery distinct.",
+    "flows": [
+      [
+        "Editor",
+        "Local draft",
+        "Sync gateway",
+        "Revision service",
+        "Document store"
+      ],
+      [
+        "Revision service",
+        "Change broadcaster",
+        "Other editors"
+      ],
+      [
+        "Revision service",
+        "Conflict recovery"
+      ]
+    ]
+  },
+  {
+    "slug": "file-sharing",
+    "title": "Expiring file sharing",
+    "category": "Collaboration",
+    "problem": "Separate link authorization from file storage and revoke access explicitly.",
+    "flows": [
+      [
+        "Owner",
+        "Share management",
+        "Share registry"
+      ],
+      [
+        "Visitor",
+        "Share gateway",
+        "Expiry and revocation check",
+        "File reader",
+        "File store"
+      ],
+      [
+        "Share management",
+        "Revocation log"
+      ]
+    ]
+  },
+  {
+    "slug": "task-management",
+    "title": "Task workflow service",
+    "category": "Collaboration",
+    "problem": "Track task state and notifications without tying UI requests to message delivery.",
+    "flows": [
+      [
+        "User",
+        "Task API",
+        "Workflow engine",
+        "Task store"
+      ],
+      [
+        "Workflow engine",
+        "Activity log"
+      ],
+      [
+        "Workflow engine",
+        "Notification queue",
+        "Notification worker"
+      ]
+    ]
+  },
+  {
+    "slug": "calendar-sync",
+    "title": "Calendar provider synchronization",
+    "category": "Collaboration",
+    "problem": "Reconcile provider changes and local edits using versioned sync state.",
+    "flows": [
+      [
+        "Calendar provider",
+        "Webhook intake",
+        "Sync queue",
+        "Sync worker",
+        "Calendar store"
+      ],
+      [
+        "User",
+        "Calendar API",
+        "Calendar store"
+      ],
+      [
+        "Sync worker",
+        "Sync cursor store"
+      ]
+    ]
+  },
+  {
+    "slug": "knowledge-base",
+    "title": "Knowledge base publication",
+    "category": "Collaboration",
+    "problem": "Version internal articles and publish only approved content to search.",
+    "flows": [
+      [
+        "Author",
+        "Article editor",
+        "Draft store",
+        "Review workflow",
+        "Published store"
+      ],
+      [
+        "Published store",
+        "Search index"
+      ],
+      [
+        "Reader",
+        "Knowledge API",
+        "Published store"
+      ]
+    ]
+  },
+  {
+    "slug": "approval-workflow",
+    "title": "Document approval workflow",
+    "category": "Collaboration",
+    "problem": "Capture approvals against a specific document revision.",
+    "flows": [
+      [
+        "Requester",
+        "Submission API",
+        "Document versions",
+        "Approval engine",
+        "Reviewer inbox"
+      ],
+      [
+        "Reviewer inbox",
+        "Decision ledger"
+      ],
+      [
+        "Approval engine",
+        "Status API"
+      ]
+    ]
+  },
+  {
+    "slug": "digital-signoff",
+    "title": "Release signoff record",
+    "category": "Collaboration",
+    "problem": "Tie signoff decisions to a release artifact rather than a mutable document.",
+    "flows": [
+      [
+        "Release artifact",
+        "Signoff request",
+        "Approval policy",
+        "Approvers"
+      ],
+      [
+        "Approvers",
+        "Decision store"
+      ],
+      [
+        "Decision store",
+        "Release gate",
+        "Deployment workflow"
+      ]
+    ]
+  },
+  {
+    "slug": "customer-support",
+    "title": "Customer support ticket routing",
+    "category": "Collaboration",
+    "problem": "Track routing, attachments and response history in separate components.",
+    "flows": [
+      [
+        "Customer",
+        "Support intake",
+        "Ticket service",
+        "Ticket store"
+      ],
+      [
+        "Ticket service",
+        "Routing engine",
+        "Agent queue"
+      ],
+      [
+        "Agent console",
+        "Ticket service"
+      ],
+      [
+        "Support intake",
+        "Attachment store"
+      ]
+    ]
+  },
+  {
+    "slug": "notification-preferences",
+    "title": "User notification preferences",
+    "category": "Collaboration",
+    "problem": "Apply channel preferences and suppression rules before message dispatch.",
+    "flows": [
+      [
+        "User",
+        "Preference API",
+        "Preference store"
+      ],
+      [
+        "Application events",
+        "Notification planner",
+        "Preference store"
+      ],
+      [
+        "Notification planner",
+        "Channel queue",
+        "Delivery provider"
+      ]
+    ]
+  },
+  {
+    "slug": "route-planning",
+    "title": "Delivery route planning",
+    "category": "Logistics",
+    "problem": "Separate shipment data, planning jobs and driver assignment.",
+    "flows": [
+      [
+        "Orders",
+        "Shipment store",
+        "Planning scheduler",
+        "Route solver",
+        "Route plans"
+      ],
+      [
+        "Dispatcher",
+        "Assignment API",
+        "Route plans"
+      ],
+      [
+        "Driver app",
+        "Assignment API"
+      ]
+    ]
+  },
+  {
+    "slug": "shipment-tracking",
+    "title": "Shipment tracking events",
+    "category": "Logistics",
+    "problem": "Preserve carrier event history while serving a current status projection.",
+    "flows": [
+      [
+        "Carrier adapters",
+        "Tracking intake",
+        "Event deduplication",
+        "Tracking history"
+      ],
+      [
+        "Tracking history",
+        "Status projector",
+        "Shipment status"
+      ],
+      [
+        "Customer",
+        "Tracking API",
+        "Shipment status"
+      ]
+    ]
+  },
+  {
+    "slug": "delivery-proof",
+    "title": "Proof of delivery capture",
+    "category": "Logistics",
+    "problem": "Keep uploaded evidence and delivery status updates linked by a stable identifier.",
+    "flows": [
+      [
+        "Driver app",
+        "Upload service",
+        "Evidence store"
+      ],
+      [
+        "Driver app",
+        "Delivery API",
+        "Delivery ledger"
+      ],
+      [
+        "Delivery ledger",
+        "Evidence validator",
+        "Evidence store"
+      ]
+    ]
+  },
+  {
+    "slug": "warehouse-events",
+    "title": "Warehouse scanning events",
+    "category": "Logistics",
+    "problem": "Turn scanner events into inventory movements with traceable exceptions.",
+    "flows": [
+      [
+        "Scanner",
+        "Scan gateway",
+        "Validation worker",
+        "Movement ledger"
+      ],
+      [
+        "Validation worker",
+        "Exception queue"
+      ],
+      [
+        "Movement ledger",
+        "Inventory projection"
+      ]
+    ]
+  },
+  {
+    "slug": "supply-chain",
+    "title": "Supplier event coordination",
+    "category": "Logistics",
+    "problem": "Normalize supplier status changes and expose delayed or inconsistent updates.",
+    "flows": [
+      [
+        "Supplier systems",
+        "Partner adapters",
+        "Event queue",
+        "Normalizer",
+        "Supply order store"
+      ],
+      [
+        "Normalizer",
+        "Exception review"
+      ],
+      [
+        "Supply order store",
+        "Operations dashboard"
+      ]
+    ]
+  },
+  {
+    "slug": "dispatch-marketplace",
+    "title": "Driver dispatch matching",
+    "category": "Logistics",
+    "problem": "Coordinate offers, acceptance and assignment without duplicate ownership.",
+    "flows": [
+      [
+        "Delivery request",
+        "Matching service",
+        "Available driver index"
+      ],
+      [
+        "Matching service",
+        "Offer queue",
+        "Driver app"
+      ],
+      [
+        "Driver app",
+        "Acceptance API",
+        "Assignment ledger"
+      ]
+    ]
+  },
+  {
+    "slug": "cold-chain",
+    "title": "Cold chain telemetry review",
+    "category": "Logistics",
+    "problem": "Associate transport telemetry and threshold exceptions with shipments.",
+    "flows": [
+      [
+        "Shipment sensors",
+        "Telemetry gateway",
+        "Shipment correlation",
+        "Time series store"
+      ],
+      [
+        "Shipment correlation",
+        "Threshold evaluator",
+        "Exception queue",
+        "Operations review"
+      ]
+    ]
+  },
+  {
+    "slug": "fleet-maintenance",
+    "title": "Fleet maintenance planning",
+    "category": "Logistics",
+    "problem": "Combine vehicle status and service records into a maintenance schedule.",
+    "flows": [
+      [
+        "Vehicle events",
+        "Status aggregator",
+        "Fleet state"
+      ],
+      [
+        "Service records",
+        "Maintenance history"
+      ],
+      [
+        "Fleet state",
+        "Maintenance planner",
+        "Work orders"
+      ],
+      [
+        "Maintenance history",
+        "Maintenance planner"
+      ]
+    ]
+  },
+  {
+    "slug": "address-validation",
+    "title": "Address validation workflow",
+    "category": "Logistics",
+    "problem": "Track normalization and human review when delivery addresses are ambiguous.",
+    "flows": [
+      [
+        "Checkout",
+        "Address API",
+        "Normalizer",
+        "Validation provider"
+      ],
+      [
+        "Validation provider",
+        "Validated address store"
+      ],
+      [
+        "Validation provider",
+        "Review queue",
+        "Support console"
+      ]
+    ]
+  },
+  {
+    "slug": "reverse-logistics",
+    "title": "Reverse logistics coordination",
+    "category": "Logistics",
+    "problem": "Track collection, inspection and restocking for returned goods.",
+    "flows": [
+      [
+        "Return approval",
+        "Collection planner",
+        "Carrier adapter",
+        "Collection tracking"
+      ],
+      [
+        "Collection tracking",
+        "Warehouse intake",
+        "Inspection",
+        "Disposition ledger"
+      ],
+      [
+        "Disposition ledger",
+        "Restock service"
+      ]
+    ]
+  }
+]

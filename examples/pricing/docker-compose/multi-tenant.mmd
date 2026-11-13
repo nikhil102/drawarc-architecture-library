@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Price and promotion evaluation"]
+    n0["Cart"]
+    n1["Quote API"]
+    n2["Pricing engine"]
+    n3["Price catalog"]
+    n4["Promotion rules"]
+    n5["Eligibility service"]
+    n6["Quote snapshot"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n2 --> n5
+    n1 --> n6
+  end
+  subgraph deployment["Docker Compose"]
+    d0["Reverse proxy"]
+    d1["Container network"]
+    d2["Application containers"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Multi-tenant isolation"]
+    c0["Tenant context resolver"]
+    c1["Tenant quota policy"]
+    c2["Tenant-scoped data access"]
+    c3["Isolation audit"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

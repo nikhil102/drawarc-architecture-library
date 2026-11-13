@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Encryption key service boundary"]
+    n0["Application"]
+    n1["Encryption adapter"]
+    n2["Key service"]
+    n3["Key policy"]
+    n4["Encrypted data store"]
+    n5["Key audit"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n2 --> n5
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

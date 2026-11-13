@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Delivery route planning"]
+    n0["Orders"]
+    n1["Shipment store"]
+    n2["Planning scheduler"]
+    n3["Route solver"]
+    n4["Route plans"]
+    n5["Dispatcher"]
+    n6["Assignment API"]
+    n7["Driver app"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n5 --> n6
+    n6 --> n4
+    n7 --> n6
+  end
+  subgraph deployment["Virtual machines"]
+    d0["Load balancer"]
+    d1["Private subnet"]
+    d2["Application virtual machines"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Read scaling"]
+    c0["Read cache"]
+    c1["Read model"]
+    c2["Projection updates"]
+    c0 --> c1
+    c2 --> c1
+  end
+  n1 -. "design concern" .-> c0

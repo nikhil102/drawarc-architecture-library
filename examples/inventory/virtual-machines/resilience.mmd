@@ -1,0 +1,31 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Inventory reservation"]
+    n0["Checkout"]
+    n1["Reservation API"]
+    n2["Stock ledger"]
+    n3["Reservation expiry queue"]
+    n4["Release worker"]
+    n0 --> n1
+    n1 --> n2
+    n1 --> n3
+    n3 --> n4
+    n4 --> n2
+  end
+  subgraph deployment["Virtual machines"]
+    d0["Load balancer"]
+    d1["Private subnet"]
+    d2["Application virtual machines"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

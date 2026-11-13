@@ -1,0 +1,33 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Inventory reservation"]
+    n0["Checkout"]
+    n1["Reservation API"]
+    n2["Stock ledger"]
+    n3["Reservation expiry queue"]
+    n4["Release worker"]
+    n0 --> n1
+    n1 --> n2
+    n1 --> n3
+    n3 --> n4
+    n4 --> n2
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Disaster recovery"]
+    c0["Backup coordinator"]
+    c1["Backup archive"]
+    c2["Isolated restore environment"]
+    c3["Restore verification"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

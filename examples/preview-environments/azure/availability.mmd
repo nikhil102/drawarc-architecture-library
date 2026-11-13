@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Pull request preview environments"]
+    n0["Pull request events"]
+    n1["Preview controller"]
+    n2["Resource provisioner"]
+    n3["Preview namespace"]
+    n4["Environment registry"]
+    n5["Close events"]
+    n6["Cleanup worker"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n5 --> n6
+    n6 --> n4
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Availability"]
+    c0["Health checks"]
+    c1["Traffic policy"]
+    c2["Secondary application instance"]
+    c0 --> c1
+    c1 --> c2
+  end
+  n1 -. "design concern" .-> c0

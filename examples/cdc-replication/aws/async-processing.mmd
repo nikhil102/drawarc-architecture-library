@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Change data capture pipeline"]
+    n0["Application"]
+    n1["Primary database"]
+    n2["Change capture"]
+    n3["Change topic"]
+    n4["Projection worker"]
+    n5["Read model"]
+    n6["Schema errors"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n4 --> n6
+  end
+  subgraph deployment["AWS environment"]
+    d0["AWS ingress boundary"]
+    d1["Private application network"]
+    d2["Application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Asynchronous processing"]
+    c0["Work queue"]
+    c1["Background worker"]
+    c2["Result store"]
+    c3["Dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c1 --> c3
+  end
+  n1 -. "design concern" .-> c0

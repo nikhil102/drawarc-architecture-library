@@ -1,0 +1,40 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Online storefront checkout"]
+    n0["Shopper"]
+    n1["Storefront"]
+    n2["Catalog service"]
+    n3["Product database"]
+    n4["Checkout"]
+    n5["Payment gateway"]
+    n6["Order service"]
+    n7["Order database"]
+    n8["Notification service"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n4 --> n5
+    n4 --> n6
+    n6 --> n7
+    n6 --> n8
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Disaster recovery"]
+    c0["Backup coordinator"]
+    c1["Backup archive"]
+    c2["Isolated restore environment"]
+    c3["Restore verification"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

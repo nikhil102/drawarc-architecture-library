@@ -1,0 +1,40 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Fleet location tracking"]
+    n0["Vehicle"]
+    n1["Location gateway"]
+    n2["Event stream"]
+    n3["Position processor"]
+    n4["Current location store"]
+    n5["History archive"]
+    n6["Operator"]
+    n7["Fleet API"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n3 --> n5
+    n6 --> n7
+    n7 --> n4
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

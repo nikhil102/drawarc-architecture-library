@@ -1,0 +1,42 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Online storefront checkout"]
+    n0["Shopper"]
+    n1["Storefront"]
+    n2["Catalog service"]
+    n3["Product database"]
+    n4["Checkout"]
+    n5["Payment gateway"]
+    n6["Order service"]
+    n7["Order database"]
+    n8["Notification service"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n4 --> n5
+    n4 --> n6
+    n6 --> n7
+    n6 --> n8
+  end
+  subgraph deployment["Hybrid environment"]
+    d0["Cloud entry boundary"]
+    d1["Private connectivity"]
+    d2["Datacenter application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

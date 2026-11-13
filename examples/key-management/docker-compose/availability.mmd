@@ -1,0 +1,32 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Encryption key service boundary"]
+    n0["Application"]
+    n1["Encryption adapter"]
+    n2["Key service"]
+    n3["Key policy"]
+    n4["Encrypted data store"]
+    n5["Key audit"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n2 --> n5
+  end
+  subgraph deployment["Docker Compose"]
+    d0["Reverse proxy"]
+    d1["Container network"]
+    d2["Application containers"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Availability"]
+    c0["Health checks"]
+    c1["Traffic policy"]
+    c2["Secondary application instance"]
+    c0 --> c1
+    c1 --> c2
+  end
+  n1 -. "design concern" .-> c0

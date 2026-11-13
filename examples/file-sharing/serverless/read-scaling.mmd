@@ -1,0 +1,37 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Expiring file sharing"]
+    n0["Owner"]
+    n1["Share management"]
+    n2["Share registry"]
+    n3["Visitor"]
+    n4["Share gateway"]
+    n5["Expiry and revocation check"]
+    n6["File reader"]
+    n7["File store"]
+    n8["Revocation log"]
+    n0 --> n1
+    n1 --> n2
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+    n1 --> n8
+  end
+  subgraph deployment["Serverless application"]
+    d0["Request or event gateway"]
+    d1["Function dispatcher"]
+    d2["Application functions"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Read scaling"]
+    c0["Read cache"]
+    c1["Read model"]
+    c2["Projection updates"]
+    c0 --> c1
+    c2 --> c1
+  end
+  n1 -. "design concern" .-> c0

@@ -1,0 +1,40 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Claim status tracking"]
+    n0["Payer adapter"]
+    n1["Status ingestion"]
+    n2["Status event store"]
+    n3["Claim projection"]
+    n4["Member portal"]
+    n5["Status API"]
+    n6["Exception queue"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n4 --> n5
+    n5 --> n3
+    n1 --> n6
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

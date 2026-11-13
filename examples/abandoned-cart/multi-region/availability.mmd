@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Abandoned cart recovery"]
+    n0["Cart events"]
+    n1["Cart state store"]
+    n2["Recovery scheduler"]
+    n3["Consent check"]
+    n4["Message queue"]
+    n5["Notification provider"]
+    n6["Order events"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n6 --> n1
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Availability"]
+    c0["Health checks"]
+    c1["Traffic policy"]
+    c2["Secondary application instance"]
+    c0 --> c1
+    c1 --> c2
+  end
+  n1 -. "design concern" .-> c0

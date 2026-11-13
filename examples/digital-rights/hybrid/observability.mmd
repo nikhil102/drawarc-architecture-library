@@ -1,0 +1,38 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Digital asset access control"]
+    n0["Viewer"]
+    n1["Asset API"]
+    n2["Entitlement service"]
+    n3["Subscription store"]
+    n4["Signed access issuer"]
+    n5["Asset CDN"]
+    n6["Access audit"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n4 --> n5
+    n1 --> n6
+  end
+  subgraph deployment["Hybrid environment"]
+    d0["Cloud entry boundary"]
+    d1["Private connectivity"]
+    d2["Datacenter application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0

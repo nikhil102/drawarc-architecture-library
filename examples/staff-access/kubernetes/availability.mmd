@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Staff access provisioning"]
+    n0["HR events"]
+    n1["Provisioning queue"]
+    n2["Role mapper"]
+    n3["Identity provider"]
+    n4["Access registry"]
+    n5["Application access"]
+    n6["Audit log"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n3 --> n5
+    n2 --> n6
+  end
+  subgraph deployment["Kubernetes"]
+    d0["Ingress controller"]
+    d1["Service"]
+    d2["Application deployment"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Availability"]
+    c0["Health checks"]
+    c1["Traffic policy"]
+    c2["Secondary application instance"]
+    c0 --> c1
+    c1 --> c2
+  end
+  n1 -. "design concern" .-> c0

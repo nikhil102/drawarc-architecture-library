@@ -1,0 +1,42 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Retrieval augmented assistant"]
+    n0["User"]
+    n1["Assistant API"]
+    n2["Query preparation"]
+    n3["Retriever"]
+    n4["Vector store"]
+    n5["Context builder"]
+    n6["Language model"]
+    n7["Response service"]
+    n8["Documents"]
+    n9["Ingestion worker"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n3 --> n5
+    n5 --> n6
+    n6 --> n7
+    n8 --> n9
+    n9 --> n4
+  end
+  subgraph deployment["Serverless application"]
+    d0["Request or event gateway"]
+    d1["Function dispatcher"]
+    d2["Application functions"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Disaster recovery"]
+    c0["Backup coordinator"]
+    c1["Backup archive"]
+    c2["Isolated restore environment"]
+    c3["Restore verification"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Asset maintenance signals"]
+    n0["Asset telemetry"]
+    n1["State processor"]
+    n2["Asset state store"]
+    n3["Maintenance planner"]
+    n4["Planning API"]
+    n5["Maintenance candidate queue"]
+    n0 --> n1
+    n1 --> n2
+    n3 --> n4
+    n4 --> n2
+    n1 --> n5
+  end
+  subgraph deployment["Private cloud"]
+    d0["Internal entry boundary"]
+    d1["Private network"]
+    d2["Internal application platform"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Asynchronous processing"]
+    c0["Work queue"]
+    c1["Background worker"]
+    c2["Result store"]
+    c3["Dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c1 --> c3
+  end
+  n1 -. "design concern" .-> c0

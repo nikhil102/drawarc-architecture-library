@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Internal developer portal"]
+    n0["Source systems"]
+    n1["Catalog collectors"]
+    n2["Service catalog"]
+    n3["Developer"]
+    n4["Portal API"]
+    n5["Documentation index"]
+    n6["Ownership directory"]
+    n0 --> n1
+    n1 --> n2
+    n3 --> n4
+    n4 --> n2
+    n4 --> n5
+    n4 --> n6
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Multi-tenant isolation"]
+    c0["Tenant context resolver"]
+    c1["Tenant quota policy"]
+    c2["Tenant-scoped data access"]
+    c3["Isolation audit"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

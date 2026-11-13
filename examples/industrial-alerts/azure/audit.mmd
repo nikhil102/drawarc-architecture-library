@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Industrial equipment alerts"]
+    n0["Sensors"]
+    n1["Edge collector"]
+    n2["Message broker"]
+    n3["Threshold evaluation"]
+    n4["Alert queue"]
+    n5["Operator console"]
+    n6["Time series store"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["Azure environment"]
+    d0["Azure entry boundary"]
+    d1["Application subnet"]
+    d2["Azure application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Auditability"]
+    c0["Audit event intake"]
+    c1["Append-only event log"]
+    c2["Retention archive"]
+    c3["Review interface"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

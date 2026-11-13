@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Bank feed ingestion"]
+    n0["Bank connector"]
+    n1["Ingestion queue"]
+    n2["Normalizer"]
+    n3["Transaction store"]
+    n4["Validation errors"]
+    n5["Operations console"]
+    n6["Reconciliation worker"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n2 --> n4
+    n4 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["Virtual machines"]
+    d0["Load balancer"]
+    d1["Private subnet"]
+    d2["Application virtual machines"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Multi-tenant isolation"]
+    c0["Tenant context resolver"]
+    c1["Tenant quota policy"]
+    c2["Tenant-scoped data access"]
+    c3["Isolation audit"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

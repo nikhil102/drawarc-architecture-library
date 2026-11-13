@@ -1,0 +1,34 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Stream processing topology"]
+    n0["Producers"]
+    n1["Event broker"]
+    n2["Stream processor"]
+    n3["Serving store"]
+    n4["Replay archive"]
+    n5["Dead letter topic"]
+    n6["Query API"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n2 --> n5
+    n3 --> n6
+  end
+  subgraph deployment["Google Cloud environment"]
+    d0["Google Cloud entry boundary"]
+    d1["Private service network"]
+    d2["Application compute"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Availability"]
+    c0["Health checks"]
+    c1["Traffic policy"]
+    c2["Secondary application instance"]
+    c0 --> c1
+    c1 --> c2
+  end
+  n1 -. "design concern" .-> c0

@@ -1,0 +1,40 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Feature flag evaluation"]
+    n0["Operator"]
+    n1["Flag management API"]
+    n2["Flag store"]
+    n3["Distribution stream"]
+    n4["SDK cache"]
+    n5["Application"]
+    n6["Exposure events"]
+    n7["Analytics collector"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n5 --> n4
+    n5 --> n6
+    n6 --> n7
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Disaster recovery"]
+    c0["Backup coordinator"]
+    c1["Backup archive"]
+    c2["Isolated restore environment"]
+    c3["Restore verification"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

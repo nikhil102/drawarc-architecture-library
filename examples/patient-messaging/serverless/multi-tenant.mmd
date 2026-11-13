@@ -1,0 +1,36 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Secure patient messaging"]
+    n0["Patient portal"]
+    n1["Message API"]
+    n2["Authorization check"]
+    n3["Message store"]
+    n4["Attachment store"]
+    n5["Notification queue"]
+    n6["Notification provider"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n1 --> n4
+    n1 --> n5
+    n5 --> n6
+  end
+  subgraph deployment["Serverless application"]
+    d0["Request or event gateway"]
+    d1["Function dispatcher"]
+    d2["Application functions"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Multi-tenant isolation"]
+    c0["Tenant context resolver"]
+    c1["Tenant quota policy"]
+    c2["Tenant-scoped data access"]
+    c3["Isolation audit"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

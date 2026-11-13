@@ -1,0 +1,42 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["API authentication boundary"]
+    n0["Client"]
+    n1["Identity provider"]
+    n2["Token issuer"]
+    n3["API gateway"]
+    n4["Token validator"]
+    n5["Policy engine"]
+    n6["Application"]
+    n7["Policy store"]
+    n8["Audit collector"]
+    n0 --> n1
+    n1 --> n2
+    n0 --> n3
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n5 --> n7
+    n6 --> n8
+  end
+  subgraph deployment["Multi-region environment"]
+    d0["Global request router"]
+    d1["Regional routing policy"]
+    d2["Primary regional runtime"]
+    d3["Secondary regional runtime"]
+    d0 --> d1
+    d1 --> d2
+    d2 --> d3
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Event-driven integration"]
+    c0["Transactional outbox"]
+    c1["Event broker"]
+    c2["Downstream consumer"]
+    c3["Consumer dead letter queue"]
+    c0 --> c1
+    c1 --> c2
+    c2 --> c3
+  end
+  n1 -. "design concern" .-> c0

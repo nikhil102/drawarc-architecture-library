@@ -1,0 +1,37 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Expiring file sharing"]
+    n0["Owner"]
+    n1["Share management"]
+    n2["Share registry"]
+    n3["Visitor"]
+    n4["Share gateway"]
+    n5["Expiry and revocation check"]
+    n6["File reader"]
+    n7["File store"]
+    n8["Revocation log"]
+    n0 --> n1
+    n1 --> n2
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+    n1 --> n8
+  end
+  subgraph deployment["Hybrid environment"]
+    d0["Cloud entry boundary"]
+    d1["Private connectivity"]
+    d2["Datacenter application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Dependency resilience"]
+    c0["Timeout and circuit breaker policy"]
+    c1["External dependency"]
+    c2["Fallback result"]
+    c0 --> c1
+    c0 --> c2
+  end
+  n1 -. "design concern" .-> c0

@@ -1,0 +1,43 @@
+%% MIT License - Copyright 2026 Drawarc contributors
+%% Generated reference composition; validate before use.
+flowchart LR
+  subgraph core["Multi-seller marketplace"]
+    n0["Buyer"]
+    n1["Marketplace API"]
+    n2["Order service"]
+    n3["Orders database"]
+    n4["Seller"]
+    n5["Seller portal"]
+    n6["Catalog service"]
+    n7["Catalog database"]
+    n8["Payout ledger"]
+    n9["Reconciliation worker"]
+    n0 --> n1
+    n1 --> n2
+    n2 --> n3
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7
+    n2 --> n8
+    n8 --> n9
+  end
+  subgraph deployment["AWS environment"]
+    d0["AWS ingress boundary"]
+    d1["Private application network"]
+    d2["Application runtime"]
+    d0 --> d1
+    d1 --> d2
+  end
+  d2 -. "runtime context" .-> n1
+  subgraph concern["Observability"]
+    c0["Telemetry collector"]
+    c1["Metrics store"]
+    c2["Log store"]
+    c3["Trace store"]
+    c4["Alert evaluation"]
+    c0 --> c1
+    c0 --> c2
+    c0 --> c3
+    c1 --> c4
+  end
+  n1 -. "design concern" .-> c0
