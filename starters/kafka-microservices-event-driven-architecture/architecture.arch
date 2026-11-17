@@ -1,0 +1,27 @@
+diagram LR
+
+group producers "Producers" color:blue {
+  api "Order API"
+  db "Order database" shape:cylinder icon:data-postgres
+}
+
+group event_backbone "Event backbone" color:purple {
+  events "Kafka order events" shape:queue
+}
+
+group consumers "Consumers" color:green {
+  fulfill "Fulfillment consumer" icon:generic-server
+  notify "Notification consumer" icon:generic-service
+}
+
+group recovery "Recovery" color:amber {
+  dlq "Dead-letter topic" shape:queue icon:data-kafka
+}
+
+api -> db : "Persist order"
+api -> events : "Publish via consistency strategy"
+events -> fulfill : "Consumer group A"
+events -> notify : "Consumer group B"
+fulfill -> dlq : "After bounded retries"
+notify -> dlq : "After bounded retries"
+

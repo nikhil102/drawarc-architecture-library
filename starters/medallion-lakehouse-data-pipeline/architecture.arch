@@ -1,0 +1,31 @@
+diagram LR
+
+group ingestion "Ingestion" color:blue {
+  source "Operational sources" shape:cylinder icon:data-postgres
+  ingest "Ingestion jobs" icon:generic-transform
+}
+
+group lakehouse "Lakehouse" color:purple {
+  bronze "Bronze raw layer" shape:cylinder icon:data-delta-lake
+  spark "Spark quality transforms"
+  silver "Silver validated layer" shape:cylinder icon:data-delta-lake
+}
+
+group serving "Serving" color:green {
+  gold "Gold business models" icon:data-dbt
+  bi "BI dashboards" icon:data-power-bi
+}
+
+group operations "Operations" color:amber {
+  airflow "Airflow orchestration"
+}
+
+source -> ingest : "Extract or CDC"
+ingest -> bronze : "Append raw records"
+bronze -> spark : "Read incremental input"
+spark -> silver : "Validated output"
+silver -> gold : "Business transformations"
+gold -> bi : "Query curated models"
+airflow -> ingest : "Schedule"
+airflow -> spark : "Coordinate runs"
+

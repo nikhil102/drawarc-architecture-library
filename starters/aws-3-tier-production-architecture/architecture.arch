@@ -1,0 +1,23 @@
+diagram LR
+
+group public_entry "Public entry" color:blue {
+  client "Web client" shape:browser icon:generic-client
+  cdn "CloudFront"
+}
+
+group application_tier "Application tier" color:purple {
+  lb "Application load balancer" icon:aws-cloud
+  app "ECS application"
+}
+
+group data_tier "Data tier" color:green {
+  db "RDS PostgreSQL" shape:cylinder icon:aws-rds
+  cache "Redis cache" shape:cylinder
+}
+
+client -> cdn : "HTTPS"
+cdn -> lb : "Origin request"
+lb -> app : "Application traffic"
+app -> db : "SQL"
+app -> cache : "Cache reads and writes"
+

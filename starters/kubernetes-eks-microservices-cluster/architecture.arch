@@ -1,0 +1,30 @@
+diagram LR
+
+group external_entry "External entry" color:blue {
+  user "Client" shape:browser icon:generic-client
+}
+
+group cluster_networking "Cluster networking" color:purple {
+  ingress "Ingress load balancer" icon:aws-cloud
+  svc "Kubernetes service" icon:aws-eks
+}
+
+group application_workloads "Application workloads" color:green {
+  app "Application deployment" icon:aws-eks
+  worker "Worker deployment" icon:generic-server
+}
+
+group managed_dependencies "Managed dependencies" color:amber {
+  db "RDS PostgreSQL" shape:cylinder icon:aws-rds
+  metrics "Telemetry collector" icon:generic-service
+}
+
+user -> ingress : "HTTPS"
+ingress -> svc : "Route ingress"
+svc -> app : "Ready endpoints"
+app -> worker : "Internal work request"
+app -> db : "SQL"
+worker -> db : "SQL"
+app -> metrics : "Metrics and traces"
+worker -> metrics : "Metrics and traces"
+

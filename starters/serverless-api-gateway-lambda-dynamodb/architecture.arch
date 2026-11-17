@@ -1,0 +1,29 @@
+diagram LR
+
+group api_boundary "API boundary" color:blue {
+  client "API client" shape:browser icon:generic-client
+  gateway "API Gateway"
+  auth "Cognito authorizer"
+}
+
+group compute "Compute" color:purple {
+  handler "Request Lambda"
+}
+
+group persistence "Persistence" color:green {
+  db "DynamoDB" shape:cylinder
+}
+
+group async_processing "Async processing" color:amber {
+  queue "SQS work queue" shape:queue
+  worker "Worker Lambda"
+}
+
+client -> gateway : "HTTPS"
+gateway -> auth : "Validate identity"
+gateway -> handler : "Invoke authorized request"
+handler -> db : "Read or write"
+handler -> queue : "Enqueue job"
+queue -> worker : "Deliver job"
+worker -> db : "Update result"
+

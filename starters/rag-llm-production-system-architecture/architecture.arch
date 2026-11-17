@@ -1,0 +1,30 @@
+diagram LR
+
+group knowledge_ingestion "Knowledge ingestion" color:blue {
+  docs "Knowledge documents" icon:generic-file
+  chunk "Chunk and embed" icon:generic-transform
+}
+
+group retrieval "Retrieval" color:purple {
+  vectors "Vector store" shape:cylinder
+}
+
+group online_requests "Online requests" color:green {
+  user "User" shape:person
+  api "RAG application" icon:generic-service
+}
+
+group model_and_evaluation "Model and evaluation" color:amber {
+  llm "LLM gateway" icon:generic-service
+  eval "Evaluation and traces" icon:generic-table
+}
+
+docs -> chunk : "Ingest approved content"
+chunk -> vectors : "Index chunks"
+user -> api : "Question"
+api -> vectors : "Authorized retrieval"
+api -> llm : "Question and selected context"
+llm -> api : "Generated response"
+api -> user : "Answer with sources"
+api -> eval : "Quality and usage signals"
+
